@@ -22,6 +22,8 @@ export default {
         yourPrice: "YOUR PRICE",
         uom: "UOM",
         total: "TOTAL",
+        order:"Order",
+        ship: "Ship"
     },
     fr: {
         orderInformation: "Information de la commande",

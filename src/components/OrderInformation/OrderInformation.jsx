@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import messages from "./messages";
 import "./styles.css";
+import { cpus } from "os";
 
 
 class OrderInformation extends Component {
@@ -21,14 +22,13 @@ class OrderInformation extends Component {
         isOnAccount: true,
         itemsList: [
             {
-                quantityOrdered: 3,
+                quantityOrdered: 4,
                 quantityShipped: 3,
                 productNumber: "STP17866",
                 description: "Staples Standard ",
-                yourPrice: 1.69,
+                yourPrice: 1.80,
                 lang: "en",
                 uom: "box",
-                total: 5.07,
             },
             {
                 quantityOrdered: 2,
@@ -38,17 +38,15 @@ class OrderInformation extends Component {
                 yourPrice: 8.5,
                 lang: "en",
                 uom: "box",
-                total: 17,
             },
             {
                 quantityOrdered: 1,
                 quantityShipped: 1,
                 productNumber: "OHL17866",
                 description: "Staples Standard ",
-                yourPrice: 10,
+                yourPrice: 11,
                 lang: "en",
                 uom: "box",
-                total: 10,
             }
         ],
         numberOfProducts: 3
@@ -190,8 +188,11 @@ class OrderInformation extends Component {
                     <span className="col-6">{resources.total}</span>
                 </div>
                 <div id="render-lines">
-                    <RenderLines itemsList={this.state.itemsList} numberOfProducts={this.state.numberOfProducts} />
+                    <RenderLines resources={resources} itemsList={this.state.itemsList}
+                     numberOfProducts={this.state.numberOfProducts} />
                 </div>
+
+
             </div>
         )
     }
@@ -215,19 +216,30 @@ export default OrderInformation;
 function RenderLines(props) {
     const itemsList = props.itemsList
     const numberOfProducts = props.numberOfProducts
+    const resources = props.resources
     var line = []
+    var css
 
     for (let i = 0; i < numberOfProducts; i++) {
+
+        if (i % 2 === 0) { css = "order-information-table-line" }
+        else { css = "order-information-table-line grey-background" }
+
         line.push(
-            <div className="order-information-table-line" key={i}>
+            <div className={css} key={i}>
 
                 <span className="order-information-table-quantity col-1">
-                    <div className="order-information-table-quantity-order">{itemsList[i].quantityOrdered}</div>
-                    <div className="order-information-table-quantity-ship">{itemsList[i].quantityShipped}</div>
+                    <div className="order-information-table-quantity-order">
+                    {resources.order} {itemsList[i].quantityOrdered}
+                    </div>
+                    <div className="order-information-table-quantity-ship">
+                    {resources.ship} {itemsList[i].quantityShipped}
+                    </div>
                 </span>
 
                 <span className="order-information-table-product-number col-2">
-                    <div className="order-information-table-product-number-number">{itemsList[i].productNumber}</div>
+                    <div className="order-information-table-product-number-number">
+                    {itemsList[i].productNumber}</div>
                     <div className="order-information-table-product-number-img">a</div>
                 </span>
 
@@ -244,10 +256,12 @@ function RenderLines(props) {
                 </span>
 
                 <span className="order-information-table-total col-6">
-                    <Price amount={itemsList[i].total} lang={itemsList[i].lang} />
+                    <Price amount={TotalForOneProduct(itemsList[i].yourPrice, itemsList[i].quantityOrdered)}
+                     lang={itemsList[i].lang} />
                 </span>
 
-            </div>)
+            </div>
+        )
     } return line;
 }
 
@@ -259,4 +273,7 @@ function Price(props) {
             {props.lang === "en" ? "$" + props.amount : props.amount + "$"}{" "}
         </span>
     );
+}
+function TotalForOneProduct(price, number) {
+    return price*number
 }
