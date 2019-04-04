@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders in english (as default language) 1`] = `
+<div
+  className="search-component"
+>
+  <form
+    action="/Eway/en/Shopping/Search/SearchByKeyword"
+    method="post"
+  >
+    <div
+      className="search-container"
+    >
+      <input
+        className="search-bar"
+        placeholder="Enter Keyword or Product Number here"
+        type="text"
+      />
+      <input
+        className="search-button"
+        type="submit"
+        value="Search"
+      />
+    </div>
+  </form>
+</div>
+`;
+
+exports[`renders in english 1`] = `
+<div
+  className="search-component"
+>
+  <form
+    action="/Eway/en/Shopping/Search/SearchByKeyword"
+    method="post"
+  >
+    <div
+      className="search-container"
+    >
+      <input
+        className="search-bar"
+        placeholder="Enter Keyword or Product Number here"
+        type="text"
+      />
+      <input
+        className="search-button"
+        type="submit"
+        value="Search"
+      />
+    </div>
+  </form>
+</div>
+`;
+
+exports[`renders in french 1`] = `
+<div
+  className="search-component"
+>
+  <form
+    action="/Eway/fr/Shopping/Search/SearchByKeyword"
+    method="post"
+  >
+    <div
+      className="search-container"
+    >
+      <input
+        className="search-bar"
+        placeholder="Entrez un mot-clé ou un # produit"
+        type="text"
+      />
+      <input
+        className="search-button"
+        type="submit"
+        value="Rechercher"
+      />
+    </div>
+  </form>
+</div>
+`;

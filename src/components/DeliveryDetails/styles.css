@@ -1,0 +1,83 @@
+#delivery-details-container{
+    margin: 1%;
+    font-size: 13px;
+    font-family: Arial, Verdana, sans-serif;
+}
+#delivery-details-container h2{ 
+    color:#979797;
+    font-size: large;
+}
+#delivery-details-container h3{ 
+    color:white;
+    background: grey;
+    font-size: 13px;
+    padding: 3px;
+}
+#delivery-details-indication{
+    font-size: 8pt;
+    position: absolute;
+    right: 1.5%;
+}
+#delivery-details-container form div{ 
+    display: grid;
+    margin: 0.5%;
+}
+#delivery-details-container form input[type=text]{ 
+   width: 25%;
+   min-width: 250px;
+   padding: 2px 0;
+}
+.delivery-details-buttons{
+    display: inline-flex !important;
+}
+.blue-button{
+    background-color: #005EC2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.delivery-details-buttons .return-to-cart-button{
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 8pt;
+}
+.grey-text{
+    color: grey;
+}
+.delivery-details-message{
+    font-size: 8pt;
+    margin-left: 2%;
+}
+.delivery-option-link{
+    position: absolute;
+    right: 2%;
+    color: white !important;
+    font-size: 8pt;
+    font-weight: initial;
+}
+#use-as-default{
+    padding-left: 1%; 
+}
+#select-date{
+    display: inline-grid;
+    padding-left: 2%;
+}
+.selected-date{
+    max-width: 140px;
+}
+.delivery-dates-line{
+    padding: 1% 2%;
+}
+.delivery-dates-line span{
+    padding-left: 2%;
+}
+.delivery-details-buttons{
+    margin-top: 5%;
+}
+.delivery-details-buttons .next-button{
+    width: 80px;
+    padding: 3px 4px;
+    margin-left: 5px;
+}

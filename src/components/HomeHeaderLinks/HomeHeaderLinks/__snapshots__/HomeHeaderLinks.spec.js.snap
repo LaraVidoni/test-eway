@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hides the "about us" 1`] = `
+<div
+  className="HeaderLinkComponent"
+>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="http://localhost/"
+    >
+      Home
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="logoff.aspx"
+    >
+      Logout
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="en/Core/Home/SetCulture?previousSearchParameters=en"
+    >
+      Français
+    </a>
+  </span>
+</div>
+`;
+
+exports[`hides the "language switcher" 1`] = `
+<div
+  className="HeaderLinkComponent"
+>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="http://localhost/"
+    >
+      Home
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="logoff.aspx"
+    >
+      Logout
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="AboutUs.aspx"
+    >
+      About Us
+    </a>
+  </span>
+</div>
+`;
+
+exports[`hides the "logoff" 1`] = `
+<div
+  className="HeaderLinkComponent"
+>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="http://localhost/"
+    >
+      Home
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="AboutUs.aspx"
+    >
+      About Us
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="en/Core/Home/SetCulture?previousSearchParameters=en"
+    >
+      Français
+    </a>
+  </span>
+</div>
+`;
+
+exports[`shows the "English" word when in french 1`] = `
+<div
+  className="HeaderLinkComponent"
+>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="http://localhost/"
+    >
+      Accueil
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="logoff.aspx"
+    >
+      Déconnexion
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="AboutUs.aspx"
+    >
+      À propos
+    </a>
+  </span>
+  <span
+    className="HeaderLinkItem"
+  >
+    <a
+      href="fr/Core/Home/SetCulture?previousSearchParameters=fr"
+    >
+      English
+    </a>
+  </span>
+</div>
+`;

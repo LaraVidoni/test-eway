@@ -1,0 +1,42 @@
+.order-information-title{
+    background-color: #808080;
+    color: white;
+    padding: 5px;
+    font-size: 12pt;
+}
+.bold-text{
+    font-weight: bold;
+}
+.order-information-elements{
+    display: inline-flex;
+    width: 100%;
+    padding: 0 2%;
+}
+#order-information-container{
+    margin: 1%;
+    font-size: 9pt;
+}
+.left-block{
+    width: 220px;
+}
+.order-information-line{
+    padding: 5px 0;
+}
+#render-lines{
+    display: inline-grid;   
+}
+.first-line span{
+    margin: 0 0.5px;
+    padding: 5px;
+    background-color: #808080;
+    color: white;
+}
+.first-line{
+    margin: 1% 0;
+}
+.order-information-table-line{
+    display: inline-flex;
+}
+.col-1{
+    width: 250px;
+}

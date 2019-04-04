@@ -1,0 +1,134 @@
+#close{
+    background-color: lightgray;
+    cursor: pointer;
+    color: darkgray;
+    width: 20px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    font-size: 16pt;
+    font-weight: 100;
+    height: 21px;
+}
+.credential-box{
+    position: absolute;
+    width: 100%;
+}
+#details-login{
+    background-color: #ECECEC;
+    display: table-cell;
+    padding: 15px;
+    color: black;
+    font-size: 10.66px;
+    font-weight: 600;
+}
+#details-login input[type=text], #details-login input[type=password]{
+    height: 26px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#details-login input[type=checkbox]{
+    margin: 3px 5px 0 3px;
+    position: relative;
+    bottom: -3px;
+}
+.hidden{
+    display: none;
+}
+.line-password, .line-user{
+    display: inline-grid;
+    width: 100%;
+}
+.line-user{
+    padding-top: 6px;
+}
+.line-password{
+    padding-top: 23px;
+}
+#login-background-shade{
+    background-color: #808080;
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+#login-box-arrow{
+    color: #ECECEC;
+    font: 11pt Arial;
+    position: relative;
+    top: -2px;
+    left: 40%;
+    width: 20px;
+}
+#login-box-container{
+    align-content: center;
+    font-family: Arial;
+    right: 0;
+    position: absolute;
+    z-index: 3;
+    right: 5px;
+}
+#login-box-container-top{
+    display: inline-block;
+    cursor: pointer;
+}
+#login-button{
+    border-radius: 6px;
+    padding: 1px 34px 1px 15px;
+    height: 45px;
+    background-image: url('../../images/background_title.png');
+    border: 1px solid #930000;
+    font: 11pt Arial;
+    font-weight: 600;
+}
+#login-button, #login-submit{
+    cursor: pointer;
+    color: white;
+    background-color: #CC0000;
+}
+#login-submit{
+    width: 100%;
+    height: 25px;
+    border: none;
+    margin-top: 12px;
+    font: 10pt Arial;
+    font-weight: 600;
+}
+#login-details-links{
+    padding: 15px 0 9px;
+    font-weight: lighter;
+}
+#login-details-links a{
+    color: #000000;
+}
+.table-login-container{
+    width: 245px;
+    background-color: #ECECEC;
+    color: #000000;
+    position: absolute;
+    right: 0px;
+    top: 13px;
+}
+.triangle-down{
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 11px solid white;
+    position: absolute;
+    top: 18px;
+    right: 17px;
+}
+.triangle-up{
+    width: 0; 
+    height: 0; 
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 15px solid #ECECEC;
+    position: absolute;
+    top: 4px;
+}

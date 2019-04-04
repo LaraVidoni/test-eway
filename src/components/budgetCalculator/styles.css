@@ -1,0 +1,11 @@
+.budget-calculator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  background-color: #ececec;
+  border: 1px solid grey;
+  border-radius: 4px;
+  height: 28px;
+  font-size: 12px;
+}

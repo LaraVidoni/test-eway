@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders in english (huge amount) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Budget
+     :
+     
+    <span>
+      $999999999999999.00
+       
+    </span>
+    Available
+    : 
+    <span>
+      $999999999999999.00
+       
+    </span>
+    Time Period : 2019-03-22 - 2019-03-22
+  </div>
+</div>
+`;
+
+exports[`renders in english (non-weekly) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Budget
+     :
+     
+    <span>
+      $100.00
+       
+    </span>
+    Available
+    : 
+    <span>
+      $100.00
+       
+    </span>
+    Time Period : 2019-03-22 - 2019-03-22
+  </div>
+</div>
+`;
+
+exports[`renders in english (with periods and weekly) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Weekly Budget
+     :
+     
+    <span>
+      $100.00
+       
+    </span>
+    Available
+    : 
+    <span>
+      $100.00
+       
+    </span>
+    Time Period : 2019-03-22 - 2019-03-22
+  </div>
+</div>
+`;
+
+exports[`renders in english (without periods and weekly) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Weekly Budget
+     :
+     
+    <span>
+      $100.00
+       
+    </span>
+    Available
+    : 
+    <span>
+      $100.00
+       
+    </span>
+    
+  </div>
+</div>
+`;
+
+exports[`renders in french (huge amount) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Budget
+     :
+     
+    <span>
+      999999999999999.00$
+       
+    </span>
+    disponible
+    : 
+    <span>
+      999999999999999.00$
+       
+    </span>
+    période de temps : 2019-03-22 - 2019-03-22
+  </div>
+</div>
+`;
+
+exports[`renders in french (non-weekly) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Budget
+     :
+     
+    <span>
+      100.00$
+       
+    </span>
+    disponible
+    : 
+    <span>
+      100.00$
+       
+    </span>
+    période de temps : 2019-03-22 - 2019-03-22
+  </div>
+</div>
+`;
+
+exports[`renders in french (with periods and weekly) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Budget hebdomadaire
+     :
+     
+    <span>
+      100.00$
+       
+    </span>
+    disponible
+    : 
+    <span>
+      100.00$
+       
+    </span>
+    période de temps : 2019-03-22 - 2019-03-22
+  </div>
+</div>
+`;
+
+exports[`renders in french (without periods and weekly) 1`] = `
+<div
+  className="budget-calculator"
+>
+  <div>
+    Budget hebdomadaire
+     :
+     
+    <span>
+      100.00$
+       
+    </span>
+    disponible
+    : 
+    <span>
+      100.00$
+       
+    </span>
+    
+  </div>
+</div>
+`;
