@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import messages from "./messages";
 import "./styles.css";
 import greenArrowCircle from '../../images/Green_Arrow_Circle.png';
-import truck from '../../images/truck.png';
+import dropTruck from '../../images/DropTruck.png';
 
 
 
@@ -255,7 +255,7 @@ class OrderInformation extends Component {
                         </div>
 
                         <div className="delivery-dates-line">
-                            <img src={truck} alt="Mini truck" />
+                            <img src={dropTruck} alt="These products ship separately" />
                             <span>{resources.deliveredSeparately}</span>
                         </div>
                     </>
