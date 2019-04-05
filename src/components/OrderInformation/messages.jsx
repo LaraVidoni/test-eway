@@ -24,8 +24,11 @@ export default {
         total: "TOTAL",
         order:"Order",
         ship: "Ship",
-        inInventory: "In inventory",
-        environmentalFee: "Environmental Handling Fee for"
+        inInventory: "In Stock",
+        environmentalFee: "Environmental Handling Fee for",
+        star: "*",
+        includesApplicable: "Includes applicable",
+        totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)"
     },
     fr: {
         orderInformation: "Information de la commande",

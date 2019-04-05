@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import messages from "./messages";
 import "./styles.css";
-import book from '../../images/book.png'
+import catalogLogo from '../../images/cataloglogo.png'
+import promo from '../../images/PromoLogoSmall.png'
 
 
 class OrderInformation extends Component {
@@ -28,9 +29,18 @@ class OrderInformation extends Component {
                 description: "Staples Standard ",
                 yourPrice: "1.80",
                 total: "7.2",
-                isInInventory: true,
-                hasEnvironmentalFee: false,
                 uom: "Box",
+                isInInventory: true,
+                hasFee: true,
+                hasEnvironmentalFee: false,
+                hasAssembly: true,
+                listOfFees: [
+                    {
+                        yourPrice: "1.80",
+                        total: "7.2",
+                        uom: "Box",
+                    }
+                ]
             },
             {
                 quantityOrdered: 2,
@@ -40,8 +50,16 @@ class OrderInformation extends Component {
                 yourPrice: "8.5",
                 total: "17",
                 isInInventory: true,
+                hasFee: true,
                 hasEnvironmentalFee: true,
                 uom: "Box",
+                listOfFees: [
+                    {
+                        yourPrice: "1.80",
+                        total: "7.2",
+                        uom: "Box",
+                    }
+                ]
             },
             {
                 quantityOrdered: 1,
@@ -51,11 +69,72 @@ class OrderInformation extends Component {
                 yourPrice: "11",
                 total: "11",
                 isInInventory: true,
+                hasFee: true,
                 hasEnvironmentalFee: false,
                 uom: "Each",
+                listOfFees: [
+                    {
+                        yourPrice: "1.80",
+                        total: "7.2",
+                        uom: "Box",
+                    },
+                    {
+                        yourPrice: "1.90",
+                        total: "7.2",
+                        uom: "Box",
+                    }
+                ]
             }
         ],
         grandTotal: 0,
+        summary: [
+            {
+                name: "PRODUCT TOTAL",
+                price: 1.56
+            },
+            {
+                name: "ASSEMBLY",
+                price: 52
+            },
+            {
+                name: "ENVIRONMENTAL HANDLING FEES",
+                price: 52
+            },
+            {
+                name: "GST",
+                price: 52
+            },
+            {
+                name: "PST",
+                price: 52
+            },
+            {
+                name: "TOTAL BEFORE DISCOUNT",
+                price: 52
+            },
+            {
+                name: "DISCOUNT",
+                price: 52
+            },
+            {
+                name: "PRODUCT HANDLING/SPECIAL TARIF FEES",
+                price: 52
+            },
+            {
+                name: "TOTAL",
+                price: 52
+            }
+        ],
+        listPossibility: [{
+            hasProductHandling: true,
+            hasEnvironmentalFee: true,
+            hasGst: true,
+            hasPst: true,
+            hasDiscount: true,
+            hasFurnitureDeliveryInstallation: true,
+            hasAssembly: true,
+            hasEcoFee: true
+        }]
     }
 
     renderOrderInformation(resources) {
@@ -196,10 +275,12 @@ class OrderInformation extends Component {
                 <div id="render-lines">
                     <RenderLinesTopTable lang={language} resources={resources} itemsList={this.state.itemsList} />
                 </div>
-
-                <div id="render-table-info"></div>
-                <div id="render-table-total">
-                    <RenderLinesBottomTable lang={language} resources={resources} />
+                <div className="render-table-bottom">
+                    <div id="render-table-info"> </div>
+                    <div id="render-table-total">
+                        <RenderLinesBottomTable lang={language} summary={this.state.summary}
+                            resources={resources} listPossibility={this.state.listPossibility} />
+                    </div>
                 </div>
 
             </div>
@@ -224,7 +305,6 @@ export default OrderInformation;
 
 function RenderLinesTopTable(props) {
     const itemsList = props.itemsList;
-    console.log(itemsList)
     const numberOfProducts = itemsList.length;
     const resources = props.resources;
     const lang = props.lang;
@@ -252,7 +332,7 @@ function RenderLinesTopTable(props) {
                         <div className="order-information-table-product-number-number">
                             {itemsList[i].productNumber}</div>
                         <div className="order-information-table-product-number-img">
-                            <img src={book} alt="Book" /></div>
+                            <img src={catalogLogo} alt="catalogLogo" /></div>
                     </span>
 
                     <span className="order-information-table-description col-3">
@@ -273,51 +353,120 @@ function RenderLinesTopTable(props) {
                     <span className="order-information-table-total col-6">
                         <Price amount={itemsList[i].total} lang={lang} />
                     </span>
-                    </div>
-                    {itemsList[i].hasEnvironmentalFee && (
-                        <div className="order-information-table-line-special lightgrey-background">
-                            <span className="order-information-table- col-1">
-                                <div className="order-information-table-quantity-order">
-                                    1
-                            </div>
-                            </span>
-
-                            <span className="order-information-table-product-number col-2"></span>
-
-                            <span className="order-information-table-description col-3">
-                                {resources.environmentalFee} {itemsList[i].productNumber}
-                        </span>
-
-                            <span className="order-information-table-yourPrice col-4">
-                                <Price amount={itemsList[i].yourPrice} lang={lang} />
-                            </span>
-
-                            <span className="order-information-table-uom col-5">
-                                {itemsList[i].uom}
-                            </span>
-
-                            <span className="order-information-table-total col-6">
-                                <Price amount={itemsList[i].total} lang={lang} />
-                            </span>
-                        </div>
-                    )}
                 </div>
-            
+                {itemsList[i].hasFee && (
+                    <RenderSpecialsLine product={itemsList[i].productNumber} resources={resources}
+                        lang={lang} listOfFees={itemsList[i].listOfFees} />
+                )}
+            </div>
+
         )
     } return line;
 }
-
-function RenderLinesBottomTable(props) {
-    const resources = props.resources;
+function RenderSpecialsLine(props) {
+    const product = props.product;
+    const listOfFees = props.listOfFees;
+    const numberOfLines = listOfFees.length
     const lang = props.lang;
-    return (
-        <>
-            <div>
-                <div>title</div>
-                <div>price</div>
+    const resources = props.resources;
+    var line = [];
+
+    for (let i = 0; i < numberOfLines; i++) {
+        line.push(
+            <div className="order-information-table-line-special lightgrey-background" key={i}>
+                <span className="order-information-table- col-1">
+                    <div className="order-information-table-quantity-order">
+                        {i + 1}
+                    </div>
+                </span>
+
+                <span className="order-information-table-product-number col-2"></span>
+
+                <span className="order-information-table-description col-3">
+                    {resources.environmentalFee} {product}
+                </span>
+
+                <span className="order-information-table-yourPrice col-4">
+                    <Price amount={listOfFees[i].yourPrice} lang={lang} />
+                </span>
+
+                <span className="order-information-table-uom col-5">
+                    {listOfFees[i].uom}
+                </span>
+
+                <span className="order-information-table-total col-6">
+                    <Price amount={listOfFees[i].total} lang={lang} />
+                </span>
             </div>
-        </>
-    )
+        )
+    } return line;
+}
+function RenderLinesBottomTable(props) {
+    const summary = props.summary;
+    const listPossibility = props.listPossibility;
+    const numberOfLines = summary.length;
+    const lang = props.lang;
+    const resources = props.resources;
+    var line = [];
+
+    for (let i = 0; i < numberOfLines; i++) {
+        if (summary[i].name === "PRODUCT TOTAL" || summary[i].name === "ENVIRONMENTAL HANDLING FEES"
+            || summary[i].name === "GST" || summary[i].name === "PST" || summary[i].name === "ASSEMBLY")
+            line.push(
+                <div key={i}>
+                    {summary[i].name}
+                    <Price amount={summary[i].price} lang={lang} />
+
+                </div>
+            )
+        if (summary[i].name === "DISCOUNT")
+            line.push(
+                <div key={i}>
+                    {summary[i].name}<img src={promo} alt="catalogLogo" />
+                    <Price amount={summary[i].price} lang={lang} />
+
+                </div>
+            )
+
+        if (listPossibility.hasProductHandling)
+            line.push(
+                <div key={i}>
+                    {summary[i].name} <span>{resources.include}</span>
+                    <Price amount={summary[i].price} lang={lang} />
+
+                </div>
+            )
+        if (summary[i].name === "PRODUCT TOTAL" && listPossibility.hasEcoFee)
+            line.push(
+                <div key={i}>
+                    {summary[i].name} <span>{resources.star} {resources.includesApplicable}</span>
+                    <Price amount={summary[i].price} lang={lang} />
+
+                </div>
+            )
+        if (summary[i].name === "FURNITURE DELIVERY & INSTALLATION"
+            && listPossibility.hasFurnitureDeliveryInstallation)
+            line.push(
+                <div key={i}>
+                    {summary[i].name} <span>{resources.star}
+                        <Price amount={summary[i].price} lang={lang} /></span>
+
+                </div>
+            )
+        if (summary[i].name === "TOTAL" && listPossibility.hasFurnitureDeliveryInstallation)
+            line.push(
+                <div key={i}>
+                    {summary[i].name} <span>{resources.totalFurnitureDeliveryInstallation}
+                        <Price amount={summary[i].price} lang={lang} /></span>
+
+                </div>
+            )
+        /** { listPossibility.hasEnvironmentalFee }
+        { listPossibility.hasGst }
+        { listPossibility.hasPst }
+        
+        { listPossibility.hasAssembly }*/
+    } return line;
 }
 
 
