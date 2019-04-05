@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import messages from "./messages";
 import "./styles.css";
-import { cpus } from "os";
+import book from '../../images/book.png'
 
 
 class OrderInformation extends Component {
@@ -26,30 +26,36 @@ class OrderInformation extends Component {
                 quantityShipped: 3,
                 productNumber: "STP17866",
                 description: "Staples Standard ",
-                yourPrice: 1.80,
-                lang: "en",
-                uom: "box",
+                yourPrice: "1.80",
+                total: "7.2",
+                isInInventory: true,
+                hasEnvironmentalFee: false,
+                uom: "Box",
             },
             {
                 quantityOrdered: 2,
                 quantityShipped: 1,
                 productNumber: "HGF17866",
                 description: "Staples Standard ",
-                yourPrice: 8.5,
-                lang: "en",
-                uom: "box",
+                yourPrice: "8.5",
+                total: "17",
+                isInInventory: true,
+                hasEnvironmentalFee: true,
+                uom: "Box",
             },
             {
                 quantityOrdered: 1,
                 quantityShipped: 1,
                 productNumber: "OHL17866",
                 description: "Staples Standard ",
-                yourPrice: 11,
-                lang: "en",
-                uom: "box",
+                yourPrice: "11",
+                total: "11",
+                isInInventory: true,
+                hasEnvironmentalFee: false,
+                uom: "Each",
             }
         ],
-        numberOfProducts: 3
+        grandTotal: 0,
     }
 
     renderOrderInformation(resources) {
@@ -188,10 +194,13 @@ class OrderInformation extends Component {
                     <span className="col-6">{resources.total}</span>
                 </div>
                 <div id="render-lines">
-                    <RenderLines resources={resources} itemsList={this.state.itemsList}
-                     numberOfProducts={this.state.numberOfProducts} />
+                    <RenderLinesTopTable lang={language} resources={resources} itemsList={this.state.itemsList} />
                 </div>
 
+                <div id="render-table-info"></div>
+                <div id="render-table-total">
+                    <RenderLinesBottomTable lang={language} resources={resources} />
+                </div>
 
             </div>
         )
@@ -213,67 +222,109 @@ class OrderInformation extends Component {
 }
 export default OrderInformation;
 
-function RenderLines(props) {
-    const itemsList = props.itemsList
-    const numberOfProducts = props.numberOfProducts
-    const resources = props.resources
-    var line = []
-    var css
+function RenderLinesTopTable(props) {
+    const itemsList = props.itemsList;
+    console.log(itemsList)
+    const numberOfProducts = itemsList.length;
+    const resources = props.resources;
+    const lang = props.lang;
+    var line = [];
+    var css;
 
     for (let i = 0; i < numberOfProducts; i++) {
 
-        if (i % 2 === 0) { css = "order-information-table-line" }
+        if (i % 2 === 0) { css = "order-information-table-line"; }
         else { css = "order-information-table-line grey-background" }
 
         line.push(
             <div className={css} key={i}>
+                <div className="order-information-table-line-normal">
+                    <span className="order-information-table-quantity col-1">
+                        <div className="order-information-table-quantity-order">
+                            {resources.order} {itemsList[i].quantityOrdered}
+                        </div>
+                        <div className="order-information-table-quantity-ship">
+                            {resources.ship} {itemsList[i].quantityShipped}
+                        </div>
+                    </span>
 
-                <span className="order-information-table-quantity col-1">
-                    <div className="order-information-table-quantity-order">
-                    {resources.order} {itemsList[i].quantityOrdered}
+                    <span className="order-information-table-product-number col-2">
+                        <div className="order-information-table-product-number-number">
+                            {itemsList[i].productNumber}</div>
+                        <div className="order-information-table-product-number-img">
+                            <img src={book} alt="Book" /></div>
+                    </span>
+
+                    <span className="order-information-table-description col-3">
+                        <div>{itemsList[i].description}</div>
+                        {itemsList[i].isInInventory && (
+                            <div>{resources.inInventory}</div>
+                        )}
+                    </span>
+
+                    <span className="order-information-table-yourPrice col-4">
+                        <Price amount={itemsList[i].yourPrice} lang={lang} />
+                    </span>
+
+                    <span className="order-information-table-uom col-5">
+                        {itemsList[i].uom}
+                    </span>
+
+                    <span className="order-information-table-total col-6">
+                        <Price amount={itemsList[i].total} lang={lang} />
+                    </span>
                     </div>
-                    <div className="order-information-table-quantity-ship">
-                    {resources.ship} {itemsList[i].quantityShipped}
-                    </div>
-                </span>
+                    {itemsList[i].hasEnvironmentalFee && (
+                        <div className="order-information-table-line-special lightgrey-background">
+                            <span className="order-information-table- col-1">
+                                <div className="order-information-table-quantity-order">
+                                    1
+                            </div>
+                            </span>
 
-                <span className="order-information-table-product-number col-2">
-                    <div className="order-information-table-product-number-number">
-                    {itemsList[i].productNumber}</div>
-                    <div className="order-information-table-product-number-img">a</div>
-                </span>
+                            <span className="order-information-table-product-number col-2"></span>
 
-                <span className="order-information-table-description col-3">
-                    <div>{itemsList[i].description}</div>
-                </span>
+                            <span className="order-information-table-description col-3">
+                                {resources.environmentalFee} {itemsList[i].productNumber}
+                        </span>
 
-                <span className="order-information-table-yourPrice col-4">
-                    <Price amount={itemsList[i].yourPrice} lang={itemsList[i].lang} />
-                </span>
+                            <span className="order-information-table-yourPrice col-4">
+                                <Price amount={itemsList[i].yourPrice} lang={lang} />
+                            </span>
 
-                <span className="order-information-table-uom col-5">
-                    {itemsList[i].uom}
-                </span>
+                            <span className="order-information-table-uom col-5">
+                                {itemsList[i].uom}
+                            </span>
 
-                <span className="order-information-table-total col-6">
-                    <Price amount={TotalForOneProduct(itemsList[i].yourPrice, itemsList[i].quantityOrdered)}
-                     lang={itemsList[i].lang} />
-                </span>
-
-            </div>
+                            <span className="order-information-table-total col-6">
+                                <Price amount={itemsList[i].total} lang={lang} />
+                            </span>
+                        </div>
+                    )}
+                </div>
+            
         )
     } return line;
 }
 
+function RenderLinesBottomTable(props) {
+    const resources = props.resources;
+    const lang = props.lang;
+    return (
+        <>
+            <div>
+                <div>title</div>
+                <div>price</div>
+            </div>
+        </>
+    )
+}
 
 
 function Price(props) {
     return (
         <span>
-            {props.lang === "en" ? "$" + props.amount : props.amount + "$"}{" "}
+            {props.lang === "en" ? "$" + props.amount : props.amount + "$"}
         </span>
     );
-}
-function TotalForOneProduct(price, number) {
-    return price*number
 }

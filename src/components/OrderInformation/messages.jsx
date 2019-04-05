@@ -23,7 +23,9 @@ export default {
         uom: "UOM",
         total: "TOTAL",
         order:"Order",
-        ship: "Ship"
+        ship: "Ship",
+        inInventory: "In inventory",
+        environmentalFee: "Environmental Handling Fee for"
     },
     fr: {
         orderInformation: "Information de la commande",
@@ -48,5 +50,6 @@ export default {
         yourPrice: "VOTRE PRIX",
         uom: "U/M",
         total: "TOTAL",
+        inInventory: "En inventaire"
     }
 };
