@@ -28,7 +28,8 @@ export default {
         environmentalFee: "Environmental Handling Fee for",
         star: "*",
         includesApplicable: "Includes applicable",
-        totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)"
+        totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)",
+        messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item."
     },
     fr: {
         orderInformation: "Information de la commande",
@@ -53,6 +54,8 @@ export default {
         yourPrice: "VOTRE PRIX",
         uom: "U/M",
         total: "TOTAL",
-        inInventory: "En inventaire"
+        inInventory: "En inventaire",
+        environmentalFee: "Frais de recyclage pour",
+        star: "*",
     }
 };
