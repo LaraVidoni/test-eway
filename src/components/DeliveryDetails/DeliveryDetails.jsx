@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import messages from "./messages";
 import "./styles.css";
 import greenArrowCircle from '../../images/Green_Arrow_Circle.png';
-import dropTruck from '../../images/DropTruck.png';
+import dropTruck from '../../images/ship_separately_truck.png';
 
 
 

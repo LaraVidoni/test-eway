@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import messages from "./messages";
 import "./styles.css";
-import catalogLogo from '../../images/cataloglogo.png'
-import promo from '../../images/PromoLogoSmall.png'
+import catalogLogo from '../../images/catalog.png'
+import promo from '../../images/promo.png'
+import flyerItem from '../../images/flyer_item.png'
+import assembly from '../../images/assembly.png'
+import deliveryChargesTruck from '../../images/delivery_charges_truck.png'
+import marketPrice from '../../images/market_price.png'
+import restricted from '../../images/restricted.png'
+import shipSeparatelyTruck from '../../images/ship_separately_truck.png'
+
+
 
 
 class OrderInformation extends Component {
@@ -36,11 +44,27 @@ class OrderInformation extends Component {
                 hasAssembly: true,
                 listOfFees: [
                     {
+                        isEnvironmentalFee: false,
+                        isAssemblyFee: true,
+                        isInPromo: false,
+                        isDeliveryFee: false,
+                        isInSourcebook: true,
+                        isShipSeparately: false,
                         yourPrice: "1.80",
                         total: "7.2",
                         uom: "Box",
                     }
-                ]
+                ],
+                listOfSymbols: [{
+                    isInSourcebook: true,
+                    isInPromoPubli: true,
+                    hasDeliveryCharges: true,
+                    isRestricted: true,
+                    isMarketPrice: true,
+                    isAssembly: true,
+                    isInPromo: true,
+                    isShipSeparately: true,
+                }]
             },
             {
                 quantityOrdered: 2,
@@ -55,11 +79,27 @@ class OrderInformation extends Component {
                 uom: "Box",
                 listOfFees: [
                     {
+                        isEnvironmentalFee: false,
+                        isAssemblyFee: true,
+                        isInPromo: false,
+                        isDeliveryFee: false,
+                        isInSourcebook: true,
+                        isShipSeparately: false,
                         yourPrice: "1.80",
                         total: "7.2",
                         uom: "Box",
                     }
-                ]
+                ],
+                listOfSymbols: [{
+                    isInSourcebook: true,
+                    isInPromoPubli: true,
+                    hasDeliveryCharges: true,
+                    isRestricted: true,
+                    isMarketPrice: true,
+                    isAssembly: true,
+                    isInPromo: true,
+                    isShipSeparately: true,
+                }]
             },
             {
                 quantityOrdered: 1,
@@ -74,16 +114,38 @@ class OrderInformation extends Component {
                 uom: "Each",
                 listOfFees: [
                     {
+                        isEnvironmentalFee: false,
+                        isAssemblyFee: true,
+                        isInPromo: false,
+                        isDeliveryFee: false,
+                        isInSourcebook: true,
+                        isShipSeparately: false,
                         yourPrice: "1.80",
                         total: "7.2",
                         uom: "Box",
                     },
                     {
+                        isEnvironmentalFee: false,
+                        isAssemblyFee: true,
+                        isInPromo: false,
+                        isDeliveryFee: false,
+                        isInSourcebook: true,
+                        isShipSeparately: false,
                         yourPrice: "1.90",
                         total: "7.2",
                         uom: "Box",
                     }
-                ]
+                ],
+                listOfSymbols: [{
+                    isInSourcebook: true,
+                    isInPromoPubli: true,
+                    hasDeliveryCharges: true,
+                    isRestricted: true,
+                    isMarketPrice: true,
+                    isAssembly: true,
+                    isInPromo: true,
+                    isShipSeparately: true,
+                }]
             }
         ],
         grandTotal: 0,
@@ -128,6 +190,7 @@ class OrderInformation extends Component {
         listPossibility: [{
             hasProductHandling: true,
             hasEnvironmentalFee: true,
+            hasHST: true,
             hasGst: true,
             hasPst: true,
             hasDiscount: true,
@@ -332,7 +395,8 @@ function RenderLinesTopTable(props) {
                         <div className="order-information-table-product-number-number">
                             {itemsList[i].productNumber}</div>
                         <div className="order-information-table-product-number-img">
-                            <img src={catalogLogo} alt="catalogLogo" /></div>
+                            <RenderImages listOfSymbols={itemsList[i].listOfSymbols} />
+                        </div>
                     </span>
 
                     <span className="order-information-table-description col-3">
@@ -374,10 +438,8 @@ function RenderSpecialsLine(props) {
     for (let i = 0; i < numberOfLines; i++) {
         line.push(
             <div className="order-information-table-line-special lightgrey-background" key={i}>
-                <span className="order-information-table- col-1">
-                    <div className="order-information-table-quantity-order">
-                        {i + 1}
-                    </div>
+                <span className="order-information-table-number col-1">
+                    {i + 1}
                 </span>
 
                 <span className="order-information-table-product-number col-2"></span>
@@ -411,64 +473,109 @@ function RenderLinesBottomTable(props) {
 
     for (let i = 0; i < numberOfLines; i++) {
         if (summary[i].name === "PRODUCT TOTAL" || summary[i].name === "ENVIRONMENTAL HANDLING FEES"
-            || summary[i].name === "GST" || summary[i].name === "PST" || summary[i].name === "ASSEMBLY")
+            || summary[i].name === "GST" || summary[i].name === "PST" || summary[i].name === "ASSEMBLY"
+            || summary[i].name === "TOTAL")
             line.push(
-                <div key={i}>
+                <div key={i} className="render-bottom-table-line">
                     {summary[i].name}
-                    <Price amount={summary[i].price} lang={lang} />
+                    <span className="render-bottom-table-float-right">
+                        <Price amount={summary[i].price} lang={lang} />
+                    </span>
 
                 </div>
             )
         if (summary[i].name === "DISCOUNT")
             line.push(
-                <div key={i}>
+                <div key={i} className="render-bottom-table-line">
                     {summary[i].name}<img src={promo} alt="catalogLogo" />
-                    <Price amount={summary[i].price} lang={lang} />
+                    <span className="render-bottom-table-float-right">
+                        <Price amount={summary[i].price} lang={lang} />
+                    </span>
 
                 </div>
             )
 
         if (listPossibility.hasProductHandling)
             line.push(
-                <div key={i}>
+                <div key={i} className="render-bottom-table-line">
                     {summary[i].name} <span>{resources.include}</span>
-                    <Price amount={summary[i].price} lang={lang} />
+                    <span className="render-bottom-table-float-right">
+                        <Price amount={summary[i].price} lang={lang} />
+                    </span>
 
                 </div>
             )
         if (summary[i].name === "PRODUCT TOTAL" && listPossibility.hasEcoFee)
             line.push(
-                <div key={i}>
+                <div key={i} className="render-bottom-table-line">
                     {summary[i].name} <span>{resources.star} {resources.includesApplicable}</span>
-                    <Price amount={summary[i].price} lang={lang} />
+                    <span className="render-bottom-table-float-right">
+                        <Price amount={summary[i].price} lang={lang} />
+                    </span>
 
                 </div>
             )
         if (summary[i].name === "FURNITURE DELIVERY & INSTALLATION"
             && listPossibility.hasFurnitureDeliveryInstallation)
             line.push(
-                <div key={i}>
-                    {summary[i].name} <span>{resources.star}
-                        <Price amount={summary[i].price} lang={lang} /></span>
+                <div key={i} className="render-bottom-table-line">
+                    {summary[i].name}
+                    <span>{resources.star}
+                        <span className="render-bottom-table-float-right">
+                            <Price amount={summary[i].price} lang={lang} />
+                        </span>
+                    </span>
 
                 </div>
             )
         if (summary[i].name === "TOTAL" && listPossibility.hasFurnitureDeliveryInstallation)
             line.push(
-                <div key={i}>
-                    {summary[i].name} <span>{resources.totalFurnitureDeliveryInstallation}
-                        <Price amount={summary[i].price} lang={lang} /></span>
+                <div key={i} className="render-bottom-table-line">
+                    {summary[i].name}
+                    <span>{resources.totalFurnitureDeliveryInstallation}
+                        <span className="render-bottom-table-float-right">
+                            <Price amount={summary[i].price} lang={lang} />
+                        </span>
+                    </span>
 
                 </div>
             )
-        /** { listPossibility.hasEnvironmentalFee }
-        { listPossibility.hasGst }
-        { listPossibility.hasPst }
-        
-        { listPossibility.hasAssembly }*/
     } return line;
 }
+function RenderImages(props) {
+    const listOfSymbols = props.listOfSymbols;
+    const numberOfSymbols = listOfSymbols.length;
+    const lang = props.lang;
+    const resources = props.resources;
+    var line = [];
 
+    for (let i = 0; i < numberOfSymbols; i++) {
+        if (listOfSymbols[i].isInSourcebook) line.push(
+            <span><img src={catalogLogo} alt="catalogLogo" /></span>
+        )
+        if (listOfSymbols[i].isInPromoPubli) line.push(
+            <span><img src={flyerItem} alt="flyerItem" /></span>
+        )
+        if (listOfSymbols[i].hasDeliveryCharges) line.push(
+            <span><img src={deliveryChargesTruck} alt="deliveryChargesTruck" /></span>
+        )
+        if (listOfSymbols[i].isRestricted) line.push(
+            <span><img src={restricted} alt="restricted" /></span>
+        )
+        if (listOfSymbols[i].isMarketPrice) line.push(
+            <span><img src={marketPrice} alt="marketPrice" /></span>
+        )
+        if (listOfSymbols[i].isAssembly) line.push(
+            <span><img src={assembly} alt="assembly" /></span>
+        )
+        if (listOfSymbols[i].isInPromo) line.push(
+            <span><img src={promo} alt="promo" /></span>
+        )
+        if (listOfSymbols[i].isShipSeparately) line.push(
+            <span><img src={shipSeparatelyTruck} alt="shipSeparatelyTruck" /></span>
+        )
+    } return line;
+}
 
 function Price(props) {
     return (
