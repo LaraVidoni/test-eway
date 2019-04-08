@@ -7,7 +7,7 @@ function HomeHeaderLinks(props) {
     showLogoff = true,
     showAboutUs = true,
     showLanguage = true,
-    contactAddress = "easyservice@staples.com",
+    //contactAddress = "easyservice@staples.com",
     language = "en"
   } = props;
   let resources = messages[language];

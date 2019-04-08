@@ -15,7 +15,7 @@ function BudgetCalculator(props) {
   return (
     <div className="budget-calculator">
       <div>
-        {props.isWeeklyBudget && resources.weekly || resources.budget} :{" "}
+        {(props.isWeeklyBudget && resources.weekly) || resources.budget} :{" "}
         <Price amount={props.budgetAmount} lang={props.language} />
         {resources.available}: <Price amount={props.availableAmount} lang={props.language} />
         {props.periodEnd &&

@@ -7,11 +7,7 @@ import dropTruck from '../../images/ship_separately_truck.png';
 
 
 class OrderInformation extends Component {
-    constructor() {
-        super();
-        let today = new Date();
-        today = today.setDate(today.getDate());
-    }
+    
     state = {
         isStandardDelivery: false,
         isScheduledDelivery: false,
