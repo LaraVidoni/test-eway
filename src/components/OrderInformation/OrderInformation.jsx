@@ -3,6 +3,7 @@ import assembly from '../../images/assembly.png';
 import catalogLogo from '../../images/catalog.png';
 import deliveryChargesTruck from '../../images/delivery_charges_truck.png';
 import flyerItem from '../../images/flyer_item.png';
+import infoIcon from '../../images/information_icon.png';
 import marketPrice from '../../images/market_price.png';
 import promo from '../../images/promo.png';
 import restricted from '../../images/restricted.png';
@@ -33,11 +34,12 @@ class OrderInformation extends Component {
                 quantityShipped: 3,
                 productNumber: "STP17866",
                 description: "Staples Standard ",
-                yourPrice: "1.80",
+                comment1: "In stock",
+                comment2: "5-7 business day",
+                unitSellPrice: "1.80",
                 total: "7.2",
                 uom: "Box",
                 isInInventory: true,
-                hasFee: true,
                 hasEnvironmentalFee: false,
                 hasAssembly: true,
                 productFees: [
@@ -81,15 +83,14 @@ class OrderInformation extends Component {
                 quantityShipped: 1,
                 productNumber: "HGF17866",
                 description: "Staples Standard ",
-                yourPrice: "8.5",
+                comment1: "In stock",
+                comment2: "",
+                unitSellPrice: "8.5",
                 total: "17",
                 isInInventory: true,
-                hasFee: true,
                 hasEnvironmentalFee: true,
                 uom: "Box",
-                productFees: [
-
-                ],
+                productFees: [],
                 listOfSymbols: {
                     isInSourcebook: false,
                     isInPromoPubli: true,
@@ -106,15 +107,14 @@ class OrderInformation extends Component {
                 quantityShipped: 1,
                 productNumber: "OHL17866",
                 description: "Staples Standard ",
-                yourPrice: "11",
+                comment1: "In stock",
+                comment2: "",
+                unitSellPrice: "11",
                 total: "11",
                 isInInventory: true,
-                hasFee: true,
                 hasEnvironmentalFee: false,
                 uom: "Each",
-                productFees: [
-
-                ],
+                productFees: [],
                 listOfSymbols: {
                     isInSourcebook: true,
                     isInPromoPubli: false,
@@ -393,7 +393,7 @@ class OrderInformation extends Component {
                     <span className="col-1">{resources.quantity}</span>
                     <span className="col-2">{resources.productNumber}</span>
                     <span className="col-3">{resources.description}</span>
-                    <span className="col-4">{resources.yourPrice}</span>
+                    <span className="col-4">{resources.unitSellPrice}</span>
                     <span className="col-5">{resources.uom}</span>
                     <span className="col-6">{resources.total}</span>
                 </div>
@@ -424,10 +424,12 @@ class OrderInformation extends Component {
 
         return (
             <div id="order-information-container">
+
                 {this.renderOrderInformation(resources)}
                 {this.renderBillingInformation(resources)}
                 {this.renderDeliveryAddress(resources)}
                 {this.renderTable(resources, language)}
+
             </div>
         )
     }
@@ -441,6 +443,19 @@ function RenderLinesTopTable(props) {
     const lang = props.lang;
     var line = [];
     var css;
+    let isHidden = true;
+    console.log("dep " + isHidden)
+
+    function showTooltip() {
+        isHidden = !isHidden
+        console.log("show " + isHidden);
+        return(<RenderTooltip isHidden={isHidden} />)
+    }
+    function hideTooltip() {
+        isHidden = !isHidden
+        console.log("hide " + isHidden);
+        return(<RenderTooltip isHidden={isHidden} />)
+    }
 
     for (let i = 0; i < numberOfProducts; i++) {
 
@@ -469,13 +484,28 @@ function RenderLinesTopTable(props) {
 
                     <span className="order-information-table-description col-3">
                         <div>{orderProducts[i].description}</div>
-                        {orderProducts[i].isInInventory && (
-                            <div>{resources.inInventory}</div>
-                        )}
+                        <div className="order-information-table-description-line">
+                            {orderProducts[i].comment1}
+                        </div>
+                        <div className="order-information-table-description-line">
+                            {orderProducts[i].comment2}
+                        </div>
                     </span>
 
-                    <span className="order-information-table-yourPrice col-4">
-                        <Price amount={orderProducts[i].yourPrice} lang={lang} />
+                    <span className="order-information-table-unitSellPrice col-4">
+                        <Price amount={orderProducts[i].unitSellPrice} lang={lang} />
+                        {orderProducts[i].productFees.length > 0 && (
+
+                            <img className="info-icon" src={infoIcon}
+                                alt="info icon"
+                                onMouseOver={showTooltip} onMouseLeave={hideTooltip} />
+                        )
+                        }
+                        {isHidden && (
+                            <div className="tooltip">
+                                {alert('test')}
+                            </div>
+                        )}
                     </span>
 
                     <span className="order-information-table-uom col-5">
@@ -486,7 +516,7 @@ function RenderLinesTopTable(props) {
                         <Price amount={orderProducts[i].total} lang={lang} />
                     </span>
                 </div>
-                {orderProducts[i].hasFee && (
+                {orderProducts[i].productFees.length > 0 && (
                     <RenderSpecialsLine product={orderProducts[i].productNumber} resources={resources}
                         lang={lang} productFees={orderProducts[i].productFees} />
                 )}
@@ -500,7 +530,6 @@ function RenderSpecialsLine(props) {
     const productFees = props.productFees;
     const numberOfLines = productFees.length
     const lang = props.lang;
-    const resources = props.resources;
     var line = [];
 
     for (let i = 0; i < numberOfLines; i++) {
@@ -516,7 +545,7 @@ function RenderSpecialsLine(props) {
                     {productFees[i].text} {product}
                 </span>
 
-                <span className="order-information-table-yourPrice col-4">
+                <span className="order-information-table-unitSellPrice col-4">
                     <Price amount={productFees[i].price} lang={lang} />
                 </span>
 
@@ -542,7 +571,7 @@ function RenderLinesBottomTable(props) {
         line.push(
 
             <div key={i} className="render-bottom-table-line">
-                {list.text}
+                {list.text} {/*props.children*/}
                 <span className="render-bottom-table-float-right">
                     <Price amount={list.price} lang={lang} />
                 </span>
@@ -569,18 +598,12 @@ function RenderImages(props) {
         return line;
     })
     return line;*/
-    if (listOfSymbols.isInSourcebook) {
-        line.push(<span key={i}><img src={catalogLogo} alt="catalogLogo" /></span >)
-        i++;
-    }
+
     if (listOfSymbols.isInPromoPubli) {
         line.push(<span key={i}><img src={flyerItem} alt="flyerItem" /></span>)
         i++
     }
-    if (listOfSymbols.hasDeliveryCharges) {
-        line.push(<span key={i}><img src={deliveryChargesTruck} alt="deliveryChargesTruck" /></span>)
-        i++;
-    }
+
     if (listOfSymbols.isRestricted) {
         line.push(<span key={i}><img src={restricted} alt="restricted" /></span>)
         i++;
@@ -589,8 +612,16 @@ function RenderImages(props) {
         line.push(<span key={i}><img src={marketPrice} alt="marketPrice" /></span>)
         i++;
     }
+    if (listOfSymbols.hasDeliveryCharges) {
+        line.push(<span key={i}><img src={deliveryChargesTruck} alt="deliveryChargesTruck" /></span>)
+        i++;
+    }
     if (listOfSymbols.isAssembly) {
         line.push(<span key={i}><img src={assembly} alt="assembly" /></span>)
+        i++;
+    }
+    if (listOfSymbols.isInSourcebook) {
+        line.push(<span key={i}><img src={catalogLogo} alt="catalogLogo" /></span >)
         i++;
     }
     if (listOfSymbols.isInPromo) {
@@ -604,6 +635,21 @@ function RenderImages(props) {
     return line;
 }
 
+
+function RenderTooltip(props) {
+    console.log("props: "+props)
+    const isHidden=props.isHidden;
+    if (isHidden) return null 
+    else return (
+        <div className="test">
+            aa
+        </div>
+    )
+}
+
+
+
+
 function Price(props) {
     return (
         <span>
@@ -611,4 +657,3 @@ function Price(props) {
         </span>
     );
 }
-

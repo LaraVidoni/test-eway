@@ -82,8 +82,8 @@
 .lightgrey-background span{
     background-color: #f2f2f2;
 }
-.order-information-table-description div:first-child{
-    margin-bottom: 15px;
+.order-information-table-description-line{
+    margin-top: 15px;
 }
 .order-information-table-line{
     display: block;
@@ -123,4 +123,12 @@
 }
 .order-information-table-number{
     text-align: center;
+}
+.info-icon{
+    width: 20%;
+    vertical-align: middle;
+    padding-left: 6px;
+}
+.test{
+    z-index: 100;
 }

@@ -54,8 +54,13 @@ export default {
         yourPrice: "VOTRE PRIX",
         uom: "U/M",
         total: "TOTAL",
+        order: "Commande",
+        ship: "Expédié",
         inInventory: "En inventaire",
         environmentalFee: "Frais de recyclage pour",
         star: "*",
+        includesApplicable: "Includes applicable",
+        totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)",
+        messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item."
     }
 };
