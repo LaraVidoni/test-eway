@@ -411,10 +411,14 @@ class OrderInformation extends Component {
                     <div id="render-table-total">
                         <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}
                             federalTaxTotal={this.state.federalTaxTotal} resources={resources}
+<<<<<<< HEAD
                             provincialTaxTotal={this.state.provincialTaxTotal}
                             
                             
                             >
+=======
+                            provincialTaxTotal={this.state.provincialTaxTotal}>
+>>>>>>> trying-table-bottom
                             <div>hello there</div></RenderLinesBottomTable>
                     </div>
                 </div>
