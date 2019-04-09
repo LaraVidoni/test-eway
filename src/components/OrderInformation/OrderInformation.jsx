@@ -194,7 +194,7 @@ class OrderInformation extends Component {
         ecoGreenFees: 0,
         specialFees: 0,
         areaDeliveryFees: 0,
-        federalTaxTotal: 0,
+        federalTaxTotal: 1,
         provincialTaxTotal: 10.8342, //pst
         orderPromoDescriptionFR: undefined,
         orderPromoDescriptionEN: undefined,
@@ -409,7 +409,9 @@ class OrderInformation extends Component {
                     </div>
 
                     <div id="render-table-total">
-                        <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}>
+                        <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}
+                            federalTaxTotal={this.state.federalTaxTotal} resources={resources}
+                            provincialTaxTotal={this.state.provincialTaxTotal}>
                             <div>hello there</div></RenderLinesBottomTable>
                     </div>
                 </div>
@@ -449,12 +451,12 @@ function RenderLinesTopTable(props) {
     function showTooltip() {
         isHidden = !isHidden
         console.log("show " + isHidden);
-        return(<RenderTooltip isHidden={isHidden} />)
+        return (<RenderTooltip isHidden={isHidden} />)
     }
     function hideTooltip() {
         isHidden = !isHidden
         console.log("hide " + isHidden);
-        return(<RenderTooltip isHidden={isHidden} />)
+        return (<RenderTooltip isHidden={isHidden} />)
     }
 
     for (let i = 0; i < numberOfProducts; i++) {
@@ -503,7 +505,7 @@ function RenderLinesTopTable(props) {
                         }
                         {isHidden && (
                             <div className="tooltip">
-                                {alert('test')}
+
                             </div>
                         )}
                     </span>
@@ -562,26 +564,43 @@ function RenderSpecialsLine(props) {
 }
 function RenderLinesBottomTable(props) {
     const lang = props.lang
-    const listTotal = props.listTotal
-    var line = [];
+    const resources = props.resources
+    console.log("ren bot : " + props)
+    return (
+        <>
+            <RenderFederalTaxTotal lang={lang} resources={resources} value={props.federalTaxTotal} />
+            <RenderProvincialTaxTotal lang={lang} resources={resources} value={props.provincialTaxTotal} />
+        </>
+    )
+}
+function RenderFederalTaxTotal(props) {
+    const lang = props.lang
+    const resources = props.resources
+    const value = props.value
+    
+    if (value === 0) return null
 
-    listTotal.map((list, i) => {
-        if (list.price === 0.0) return null
+    return (
+        <div className="render-bottom-table-line">
+            {resources.text}
+            <span className="render-bottom-table-float-right">
+                <Price amount={value} lang={lang} />
+            </span>
+        </div>)
+}function RenderProvincialTaxTotal(props) {
+    const lang = props.lang
+    const resources = props.resources
+    const value = props.value
+    
+    if (value === 0) return null
 
-        line.push(
-
-            <div key={i} className="render-bottom-table-line">
-                {list.text} {/*props.children*/}
-                <span className="render-bottom-table-float-right">
-                    <Price amount={list.price} lang={lang} />
-                </span>
-
-            </div>
-
-        )
-        return line;
-    })
-    return line;
+    return (
+        <div className="render-bottom-table-line">
+            {resources.text}
+            <span className="render-bottom-table-float-right">
+                <Price amount={value} lang={lang} />
+            </span>
+        </div>)
 }
 function RenderImages(props) {
     const listOfSymbols = props.listOfSymbols;
@@ -637,9 +656,9 @@ function RenderImages(props) {
 
 
 function RenderTooltip(props) {
-    console.log("props: "+props)
-    const isHidden=props.isHidden;
-    if (isHidden) return null 
+    console.log("props: " + props)
+    const isHidden = props.isHidden;
+    if (isHidden) return null
     else return (
         <div className="test">
             aa
