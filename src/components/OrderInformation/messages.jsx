@@ -30,6 +30,7 @@ export default {
         includesApplicable: "Includes applicable",
         totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)",
         messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item."
+    ,text:"hello"
     },
     fr: {
         orderInformation: "Information de la commande",
