@@ -20,6 +20,9 @@
 	left: 4px;
 	position: relative;
 }
+.center{
+	text-align: center;
+}
 #checkout-cart{
 	display: flex;
 	flex-direction: column;

@@ -7,7 +7,7 @@ class MiniCart extends Component {
     state = {
         showMiniCartExtender: false,
         orderNo: "EW78053790",
-        lineInCart: 6,
+        lineInCart: 5,
         amount: 24.49,
         miniCartProductModel: [
             {
@@ -28,10 +28,6 @@ class MiniCart extends Component {
             },
             {
                 productCode: "MMM65424SSCPC",
-                quantity: 1
-            },
-            {
-                productCode: "AAM65424SSCPC",
                 quantity: 1
             }
         ],
@@ -73,7 +69,7 @@ class MiniCart extends Component {
                             <span className="text-red">{this.state.lineInCart}</span>
                         </div>
                         <div id="btn-view-cart">
-                        <input className="grey-button" type="submit" value={resources.viewCart}></input>
+                            <input className="grey-button" type="submit" value={resources.viewCart}></input>
                         </div>
                     </div>
                     <div id="checkout-cart">
@@ -96,6 +92,9 @@ class MiniCart extends Component {
                                 <span id="mini-cart-table-total"><Price amount={this.state.amount} lang={language} /></span>
                             </div>
                         </div>
+                        {this.state.lineInCart > 5 && (
+                            <div className="grey-text center">{resources.messageMoreThan5Products}</div>
+                        )}
                         <div id="mini-cart-links">
                             <a className="mini-cart-link" href="#">{resources.clickAddCatalogue}</a>
                             <a className="mini-cart-link" href="/showp/Cart.aspx?No=0">{resources.clickViewCart}</a>
@@ -117,11 +116,11 @@ function RenderLines(props) {
 
     if (lineInCart > 5) { max = 5 } else { max = lineInCart }
 
-    for (let i = 0; i < max; i++) {
+    for (let i = max; i > 0; i--) {
         line.push(
-            <div className="mini-cart-table-line" key={i}>
-                <span className="mini-cart-table-product">{miniCartProductModel[i].productCode}</span>
-                <span className="mini-cart-table-quantity">{miniCartProductModel[i].quantity}</span>
+            <div className="mini-cart-table-line" key={i-1}>
+                <span className="mini-cart-table-product">{miniCartProductModel[i-1].productCode}</span>
+                <span className="mini-cart-table-quantity">{miniCartProductModel[i-1].quantity}</span>
             </div>)
     } return line;
 }
