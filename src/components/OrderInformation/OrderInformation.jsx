@@ -36,8 +36,10 @@ class OrderInformation extends Component {
                 description: "Staples Standard ",
                 comment1: "In stock",
                 comment2: "5-7 business day",
-                unitSellPrice: "1.80",
-                total: "7.2",
+                priceWithFees: 3.42,
+                total: 7.20,
+                unitSellPrice: 3.42,
+                basePrice: 3.42,
                 uom: "Box",
                 isInInventory: true,
                 hasEnvironmentalFee: false,
@@ -46,15 +48,15 @@ class OrderInformation extends Component {
                     {
                         type: "environmentalFee",
                         text: "Environmental Handling Fee for ",
-                        price: "1.80",
-                        total: "7.2",
+                        price: 1.80,
+                        total: 7.20,
                         uom: "Box"
                     },
                     {
                         type: "assemblyFee",
                         text: "Assembly Fee for",
-                        price: "1.80",
-                        total: "7.2",
+                        price: 1.80,
+                        total: 7.20,
                         uom: "Box"
                     },
                     /* {
@@ -85,8 +87,10 @@ class OrderInformation extends Component {
                 description: "Staples Standard ",
                 comment1: "In stock",
                 comment2: "",
-                unitSellPrice: "8.5",
-                total: "17",
+                priceWithFees: 8.50,
+                unitSellPrice: 3.42,
+                total: 17,
+                basePrice: 3.42,
                 isInInventory: true,
                 hasEnvironmentalFee: true,
                 uom: "Box",
@@ -109,8 +113,10 @@ class OrderInformation extends Component {
                 description: "Staples Standard ",
                 comment1: "In stock",
                 comment2: "",
-                unitSellPrice: "11",
-                total: "11",
+                priceWithFees: 11,
+                total: 11,
+                basePrice: 3.42,
+                unitSellPrice: 3.42,
                 isInInventory: true,
                 hasEnvironmentalFee: false,
                 uom: "Each",
@@ -393,7 +399,7 @@ class OrderInformation extends Component {
                     <span className="col-1">{resources.quantity}</span>
                     <span className="col-2">{resources.productNumber}</span>
                     <span className="col-3">{resources.description}</span>
-                    <span className="col-4">{resources.unitSellPrice}</span>
+                    <span className="col-4">{resources.yourPrice}</span>
                     <span className="col-5">{resources.uom}</span>
                     <span className="col-6">{resources.total}</span>
                 </div>
@@ -410,7 +416,7 @@ class OrderInformation extends Component {
 
                     <div id="render-table-total">
                         <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}>
-                            <div>hello there</div></RenderLinesBottomTable>
+                            hello there</RenderLinesBottomTable>
                     </div>
                 </div>
 
@@ -443,19 +449,6 @@ function RenderLinesTopTable(props) {
     const lang = props.lang;
     var line = [];
     var css;
-    let isHidden = true;
-    console.log("dep " + isHidden)
-
-    function showTooltip() {
-        isHidden = !isHidden
-        console.log("show " + isHidden);
-        return(<RenderTooltip isHidden={isHidden} />)
-    }
-    function hideTooltip() {
-        isHidden = !isHidden
-        console.log("hide " + isHidden);
-        return(<RenderTooltip isHidden={isHidden} />)
-    }
 
     for (let i = 0; i < numberOfProducts; i++) {
 
@@ -492,20 +485,30 @@ function RenderLinesTopTable(props) {
                         </div>
                     </span>
 
-                    <span className="order-information-table-unitSellPrice col-4">
-                        <Price amount={orderProducts[i].unitSellPrice} lang={lang} />
+                    <span className="order-information-table-yourPrice col-4">
+                        <Price amount={orderProducts[i].priceWithFees} lang={lang} />
                         {orderProducts[i].productFees.length > 0 && (
 
-                            <img className="info-icon" src={infoIcon}
-                                alt="info icon"
-                                onMouseOver={showTooltip} onMouseLeave={hideTooltip} />
-                        )
-                        }
-                        {isHidden && (
-                            <div className="tooltip">
-                                {alert('test')}
-                            </div>
+                            <span className="tooltip">
+                                <img className="info-icon " src={infoIcon}
+                                    alt="info icon" />
+                                <div className="tooltiptext">
+
+                                    <div className="tooltip-left">
+                                        <div>{resources.price}</div>
+                                        <div>Eco fee:</div>
+                                    </div>
+
+                                    <div className="tooltip-right">
+                                        <div><Price amount={orderProducts[i].unitSellPrice} lang={lang} /></div>
+                                        <div><Price amount={orderProducts[i].productFees[0].price} lang={lang} /></div>
+                                    </div>
+
+
+                                </div>
+                            </span>
                         )}
+
                     </span>
 
                     <span className="order-information-table-uom col-5">
@@ -518,7 +521,9 @@ function RenderLinesTopTable(props) {
                 </div>
                 {orderProducts[i].productFees.length > 0 && (
                     <RenderSpecialsLine product={orderProducts[i].productNumber} resources={resources}
-                        lang={lang} productFees={orderProducts[i].productFees} />
+                        lang={lang} productFees={orderProducts[i].productFees} hasAssembly={orderProducts[i].hasAssembly}>
+                        <img src={assembly} alt="assembly" />
+                    </RenderSpecialsLine>
                 )}
             </div>
 
@@ -539,13 +544,19 @@ function RenderSpecialsLine(props) {
                     {i + 1}
                 </span>
 
-                <span className="order-information-table-product-number col-2"></span>
-
-                <span className="order-information-table-description col-3">
-                    {productFees[i].text} {product}
+                <span className="order-information-table-product-number col-2">
+                    {productFees[i].type === "assemblyFee" && (
+                        props.children
+                    )}
                 </span>
 
-                <span className="order-information-table-unitSellPrice col-4">
+                <span className="order-information-table-description col-3">
+                    {productFees[i].text} {product} {productFees[i].type === "assemblyFee" && (
+                        props.children
+                    )}
+                </span>
+
+                <span className="order-information-table-yourPrice col-4">
                     <Price amount={productFees[i].price} lang={lang} />
                 </span>
 
@@ -583,6 +594,7 @@ function RenderLinesBottomTable(props) {
     })
     return line;
 }
+
 function RenderImages(props) {
     const listOfSymbols = props.listOfSymbols;
     var line = [];
@@ -634,21 +646,6 @@ function RenderImages(props) {
     }
     return line;
 }
-
-
-function RenderTooltip(props) {
-    console.log("props: "+props)
-    const isHidden=props.isHidden;
-    if (isHidden) return null 
-    else return (
-        <div className="test">
-            aa
-        </div>
-    )
-}
-
-
-
 
 function Price(props) {
     return (

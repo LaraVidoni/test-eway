@@ -29,7 +29,8 @@ export default {
         star: "*",
         includesApplicable: "Includes applicable",
         totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)",
-        messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item."
+        messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item.",
+        price: "Price :"
     },
     fr: {
         orderInformation: "Information de la commande",
@@ -61,6 +62,7 @@ export default {
         star: "*",
         includesApplicable: "Includes applicable",
         totalFurnitureDeliveryInstallation: "(Delivery & Installation Extra)",
-        messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item."
+        messageProductHandlingBottom: "Select products are subject to Product Handling/Special Tariff Fees. Applicable product handling/special tariff fees will be clearly identified in your cart for each relevant item.",
+        price: "Prix :"
     }
 };

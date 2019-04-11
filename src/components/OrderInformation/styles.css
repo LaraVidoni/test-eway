@@ -43,6 +43,7 @@
 .order-information-table-line-normal, .order-information-table-line-special{
     display: inline-flex;
     width: 100%;
+    margin: 1px 0;
 }
 .order-information-table-line span{
     margin: 0 0.5px;
@@ -125,10 +126,38 @@
     text-align: center;
 }
 .info-icon{
-    width: 20%;
+    width: 20px;
     vertical-align: middle;
     padding-left: 6px;
 }
-.test{
-    z-index: 100;
+.tooltip {
+    position: relative;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #ffffda;
+    color: black;
+    text-align: right;
+    border: 1px black solid;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 100%;
+    opacity: 0;
+    display: inline-flex;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip-left{
+    width: 80px;
+}
+.tooltip-right{
+    width: 50px;
+    right:0;
+    position: relative;
 }
