@@ -161,3 +161,9 @@
     right:0;
     position: relative;
 }
+.order-information-table-special-description{
+    text-decoration: black underline;
+}
+.symbols{
+    cursor: pointer;
+}

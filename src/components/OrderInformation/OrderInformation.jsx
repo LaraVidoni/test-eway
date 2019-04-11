@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import assembly from '../../images/assembly.png';
-import catalogLogo from '../../images/catalog.png';
+import catalog from '../../images/catalog.png';
 import deliveryChargesTruck from '../../images/delivery_charges_truck.png';
 import flyerItem from '../../images/flyer_item.png';
 import infoIcon from '../../images/information_icon.png';
@@ -8,7 +8,9 @@ import marketPrice from '../../images/market_price.png';
 import promo from '../../images/promo.png';
 import restricted from '../../images/restricted.png';
 import shipSeparatelyTruck from '../../images/ship_separately_truck.png';
+import contract from '../../images/contract.png';
 import messages from "./messages";
+import question from '../../images/question.png';
 import "./styles.css";
 
 class OrderInformation extends Component {
@@ -20,6 +22,18 @@ class OrderInformation extends Component {
         poNumber: "Test",
         costCenter: "BRIAN MISENER 826-BC",
         accountNo: 735450,
+        totalAfterPromo: 0,
+        missedSavings: 0,
+        subTotal: 83.34,
+        environmentalHandlingFees: 0,
+        ecoGreenFees: 0,
+        specialFees: 0,
+        areaDeliveryFees: 0,
+        federalTaxTotal: 0,
+        provincialTaxTotal: 10.8342, //pst
+        promoDiscount: 0,
+        assemblyFees: 0,
+        totalSavedWithSales: 0,
         deliveryInstruction: "Test",
         streetAddress: "Test",
         addressDetails: "Test",
@@ -28,6 +42,16 @@ class OrderInformation extends Component {
         postalCode: "V6A2T4",
         isOnAccount: true,
         hasProductHandling: true,
+        isPromo: true,
+        invoices: null,
+        buyerId: undefined, //??
+        showContractIcon: false,
+        client: undefined,
+        hasCombinedFees: false,
+        orderPromoDescriptionFR: undefined,
+        orderPromoDescriptionEN: undefined,
+        deliveryPostalCode: null,
+        isDeliUnknown: true,
         orderProducts: [
             {
                 quantityOrdered: 4,
@@ -41,9 +65,6 @@ class OrderInformation extends Component {
                 unitSellPrice: 3.42,
                 basePrice: 3.42,
                 uom: "Box",
-                isInInventory: true,
-                hasEnvironmentalFee: false,
-                hasAssembly: true,
                 productFees: [
                     {
                         type: "environmentalFee",
@@ -58,27 +79,18 @@ class OrderInformation extends Component {
                         price: 1.80,
                         total: 7.20,
                         uom: "Box"
-                    },
-                    /* {
-                        isInPromo: false,
-                        isDeliveryFee: false,
-                        isInSourcebook: true,
-                        isShipSeparately: false,
-                        price: "1.80",
-                        total: "7.2",
-                        uom: "Box",
-                    }*/
+                    }
                 ],
-                listOfSymbols: {
-                    isInSourcebook: true,
-                    isInPromoPubli: true,
-                    hasDeliveryCharges: false,
-                    isRestricted: true,
-                    isMarketPrice: true,
-                    isAssembly: true,
-                    isInPromo: false,
-                    isShipSeparately: true
-                }
+                isInInventory: true,
+                hasEnvironmentalFee: false,
+                hasAssembly: true,
+                isInSourcebook: true,
+                isInPromoPubli: true,
+                hasDeliveryCharges: false,
+                isRestricted: true,
+                isMarketPrice: true,
+                isInPromo: false,
+                isShipSeparately: true
             },
             {
                 quantityOrdered: 2,
@@ -91,20 +103,17 @@ class OrderInformation extends Component {
                 unitSellPrice: 3.42,
                 total: 17,
                 basePrice: 3.42,
-                isInInventory: true,
-                hasEnvironmentalFee: true,
                 uom: "Box",
                 productFees: [],
-                listOfSymbols: {
-                    isInSourcebook: false,
-                    isInPromoPubli: true,
-                    hasDeliveryCharges: true,
-                    isRestricted: true,
-                    isMarketPrice: false,
-                    isAssembly: true,
-                    isInPromo: true,
-                    isShipSeparately: true,
-                }
+                isInInventory: true,
+                hasEnvironmentalFee: true,
+                isInSourcebook: false,
+                isInPromoPubli: true,
+                hasDeliveryCharges: true,
+                isRestricted: true,
+                isMarketPrice: false,
+                isInPromo: true,
+                isShipSeparately: true
             },
             {
                 quantityOrdered: 1,
@@ -117,98 +126,19 @@ class OrderInformation extends Component {
                 total: 11,
                 basePrice: 3.42,
                 unitSellPrice: 3.42,
-                isInInventory: true,
-                hasEnvironmentalFee: false,
                 uom: "Each",
                 productFees: [],
-                listOfSymbols: {
-                    isInSourcebook: true,
-                    isInPromoPubli: false,
-                    hasDeliveryCharges: true,
-                    isRestricted: true,
-                    isMarketPrice: false,
-                    isAssembly: true,
-                    isInPromo: true,
-                    isShipSeparately: false,
-                },
-                /*listImages: [
-                    {
-                        type: "sourcebook",
-                        img: catalogLogo,
-                        alt: "Sourcebook"
-                    },
-                    {
-                        type: "promoPubli",
-                        img: flyerItem,
-                        alt: "in a promotional publication"
-                    },
-                    {
-                        type: "deliveryCharges",
-                        img: deliveryChargesTruck,
-                        alt: "Delivery charges"
-                    },
-                    {
-                        type: "restricted",
-                        img: restricted,
-                        alt: "Restricted"
-                    },
-                    {
-                        type: "marketPrice",
-                        img: marketPrice,
-                        alt: "Market Price"
-                    },
-                    {
-                        type: "assembly",
-                        img: assembly,
-                        alt: "Assembly"
-                    },
-                    {
-                        type: "promotionItem",
-                        img: promo,
-                        alt: "Promotion Item"
-                    },
-                    {
-                        type: "shipSeparately",
-                        img: shipSeparatelyTruck,
-                        alt: "Ship Separately"
-                    }
-                ]*/
+                isInInventory: true,
+                hasEnvironmentalFee: false,
+                isInSourcebook: true,
+                isInPromoPubli: false,
+                hasDeliveryCharges: true,
+                isRestricted: true,
+                isMarketPrice: false,
+                isInPromo: true,
+                isShipSeparately: false
             }
         ],
-        /*listOfPossibleLines: {
-            hasProductHandling: true,
-            hasEnvironmentalFee: true,
-            hasHST: true, //taxe de vente harmonisée
-            hasGst: true, //good and service taxe
-            hasPst: true, //taxe provinciale
-            hasDiscount: true,
-            hasFurnitureDeliveryInstallation: true,
-            hasAssembly: true,
-            hasEcoFee: true
-        },*/
-
-        totalAfterPromo: 0,
-        isPromo: true,
-        invoices: null,
-        buyerId: undefined, //??
-        showContractIcon: false,
-        client: undefined,
-        missedSavings: 0,
-        hasCombinedFees: false,
-        subTotal: 83.34,
-        environmentalHandlingFees: 0,
-        ecoGreenFees: 0,
-        specialFees: 0,
-        areaDeliveryFees: 0,
-        federalTaxTotal: 0,
-        provincialTaxTotal: 10.8342, //pst
-        orderPromoDescriptionFR: undefined,
-        orderPromoDescriptionEN: undefined,
-        promoDiscount: 0,
-        assemblyFees: 0,
-        deliveryPostalCode: null,
-        isDeliUnknown: true,
-        totalSavedWithSales: 0,
         listTotal: [
             {
                 type: "subTotal",
@@ -251,6 +181,11 @@ class OrderInformation extends Component {
                 price: 10.8342
             },
             {
+                type: "ecoGreenFees",
+                text: "Eco Green Fees",
+                price: 10.8342
+            },
+            {
                 type: "specialFees",
                 text: "Special Fees",
                 price: 10.8342
@@ -266,6 +201,17 @@ class OrderInformation extends Component {
                 price: 94.17
             }
         ]
+        /*listOfPossibleLines: {
+            hasProductHandling: true,
+            hasEnvironmentalFee: true,
+            hasHST: true, //taxe de vente harmonisée
+            hasGst: true, //good and service taxe
+            hasPst: true, //taxe provinciale
+            hasDiscount: true,
+            hasFurnitureDeliveryInstallation: true,
+            hasAssembly: true,
+            hasEcoFee: true
+        },*/
     }
 
     renderOrderInformation(resources) {
@@ -416,7 +362,8 @@ class OrderInformation extends Component {
 
                     <div id="render-table-total">
                         <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}>
-                            hello there</RenderLinesBottomTable>
+                            <img src={promo} alt="promo" className="symbols" />
+                        </RenderLinesBottomTable>
                     </div>
                 </div>
 
@@ -450,6 +397,7 @@ function RenderLinesTopTable(props) {
     var line = [];
     var css;
 
+
     for (let i = 0; i < numberOfProducts; i++) {
 
         if (i % 2 === 0) { css = "order-information-table-line"; }
@@ -469,9 +417,18 @@ function RenderLinesTopTable(props) {
 
                     <span className="order-information-table-product-number col-2">
                         <div className="order-information-table-product-number-number">
-                            {orderProducts[i].productNumber}</div>
+                            {orderProducts[i].productNumber}
+                        </div>
                         <div className="order-information-table-product-number-img">
-                            <RenderImages listOfSymbols={orderProducts[i].listOfSymbols} />
+                            {orderProducts[i].isInPromoPubli && (<Symbols src={flyerItem} alt="Flyer item" />)}
+                            {orderProducts[i].isRestricted && (<Symbols src={restricted} alt="restricted" />)}
+                            {orderProducts[i].isMarketPrice && (<Symbols src={marketPrice} alt="marketPrice" />)}
+                            {orderProducts[i].hasDeliveryCharges && (<Symbols src={deliveryChargesTruck} alt="Delivery charges may apply" />)}
+                            {orderProducts[i].hasAssembly && (<Symbols src={assembly} alt="Assembly required" />)}
+                            {orderProducts[i].isContractProduct && (<Symbols src={contract} alt="contract" />)}
+                            {orderProducts[i].isInSourcebook && (<Symbols src={catalog} alt="Catalogue" />)}
+                            {orderProducts[i].isInPromo && (<Symbols src={promo} alt="Discount" />)}
+                            {orderProducts[i].isShipSeparately && (<Symbols src={shipSeparatelyTruck} alt="These products ship separately" />)}
                         </div>
                     </span>
 
@@ -504,7 +461,6 @@ function RenderLinesTopTable(props) {
                                         <div><Price amount={orderProducts[i].productFees[0].price} lang={lang} /></div>
                                     </div>
 
-
                                 </div>
                             </span>
                         )}
@@ -522,7 +478,8 @@ function RenderLinesTopTable(props) {
                 {orderProducts[i].productFees.length > 0 && (
                     <RenderSpecialsLine product={orderProducts[i].productNumber} resources={resources}
                         lang={lang} productFees={orderProducts[i].productFees} hasAssembly={orderProducts[i].hasAssembly}>
-                        <img src={assembly} alt="assembly" />
+                        {orderProducts[i].hasAssembly && (<Symbols src={assembly} alt="assembly" />)}
+                        {orderProducts[i].hasAssembly && (<Symbols src={question} alt="info" />)}
                     </RenderSpecialsLine>
                 )}
             </div>
@@ -546,13 +503,13 @@ function RenderSpecialsLine(props) {
 
                 <span className="order-information-table-product-number col-2">
                     {productFees[i].type === "assemblyFee" && (
-                        props.children
+                        props.children[0]
                     )}
                 </span>
 
-                <span className="order-information-table-description col-3">
+                <span className="order-information-table-special-description col-3">
                     {productFees[i].text} {product} {productFees[i].type === "assemblyFee" && (
-                        props.children
+                        props.children[1]
                     )}
                 </span>
 
@@ -578,11 +535,15 @@ function RenderLinesBottomTable(props) {
 
     listTotal.map((list, i) => {
         if (list.price === 0.0) return null
-
+        console.log("list")
+        console.log(list)
         line.push(
 
             <div key={i} className="render-bottom-table-line">
-                {list.text} {/*props.children*/}
+
+                <span>
+                    {list.text} <TextSupp type={list.type} />
+                </span>
                 <span className="render-bottom-table-float-right">
                     <Price amount={list.price} lang={lang} />
                 </span>
@@ -595,62 +556,30 @@ function RenderLinesBottomTable(props) {
     return line;
 }
 
-function RenderImages(props) {
-    const listOfSymbols = props.listOfSymbols;
-    var line = [];
-    var i = 0;
-    /*const listImages = props.listImages
-
-    listImages.map((image, i) => {
-
-        line.push(
-            <span key={i}><img src={catalogLogo} alt="catalogLogo" /></span >
-
-        )
-        return line;
-    })
-    return line;*/
-
-    if (listOfSymbols.isInPromoPubli) {
-        line.push(<span key={i}><img src={flyerItem} alt="flyerItem" /></span>)
-        i++
-    }
-
-    if (listOfSymbols.isRestricted) {
-        line.push(<span key={i}><img src={restricted} alt="restricted" /></span>)
-        i++;
-    }
-    if (listOfSymbols.isMarketPrice) {
-        line.push(<span key={i}><img src={marketPrice} alt="marketPrice" /></span>)
-        i++;
-    }
-    if (listOfSymbols.hasDeliveryCharges) {
-        line.push(<span key={i}><img src={deliveryChargesTruck} alt="deliveryChargesTruck" /></span>)
-        i++;
-    }
-    if (listOfSymbols.isAssembly) {
-        line.push(<span key={i}><img src={assembly} alt="assembly" /></span>)
-        i++;
-    }
-    if (listOfSymbols.isInSourcebook) {
-        line.push(<span key={i}><img src={catalogLogo} alt="catalogLogo" /></span >)
-        i++;
-    }
-    if (listOfSymbols.isInPromo) {
-        line.push(<span key={i}><img src={promo} alt="promo" /></span>)
-        i++;
-    }
-    if (listOfSymbols.isShipSeparately) {
-        line.push(<span key={i}><img src={shipSeparatelyTruck} alt="shipSeparatelyTruck" /></span>)
-        i++;
-    }
-    return line;
-}
-
 function Price(props) {
     return (
         <span>
             {props.lang === "en" ? "$" + props.amount : props.amount + "$"}
         </span>
     );
+}
+function Symbols(props) {
+    return <img className="symbols" src={props.src} alt={props.alt} />
+}
+
+function TextSupp(props) {
+    const type = props.type
+    const deliveryExtra = props.deliveryExtra
+    if (type === "discount")
+        return (
+            <><Symbols src={promo} alt="Discount" /></>
+        )
+
+    if (type === "total" && deliveryExtra)
+        return (
+            <><Symbols src={promo} alt="Discount" /></>
+        )
+
+
+    return null
 }

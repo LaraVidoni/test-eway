@@ -3,12 +3,13 @@ import './App.css';
 /*import SearchComponent from './components/searchBox/search-component'
 import BudgetCalculator from './components/budgetCalculator/budgetCalculator'
 import HeaderLinks from './components/HomeHeaderLinks/HomeHeaderLinks/HomeHeaderLinks'
-import MiniCart from './components/MiniCart/MiniCart';
-import Login from './components/Login/Login';
-import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';*/
-import OrderInformation from './components/OrderInformation/OrderInformation';
-/*import DeliveryDetails from './components/DeliveryDetails/DeliveryDetails';*/
 
+import Login from './components/Login/Login';
+import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
+//
+import DeliveryDetails from './components/DeliveryDetails/DeliveryDetails';
+import MiniCart from './components/MiniCart/MiniCart';*/
+import OrderInformation from './components/OrderInformation/OrderInformation';
 class App extends Component {
   render() {
     const state = {
@@ -25,10 +26,10 @@ class App extends Component {
         <SearchComponent language={state.language} />
         <BudgetCalculator {...state} />
         <Login language={state.language} />
-        <MiniCart {...state} />
+       <MiniCart {...state} />
         <OrderConfirmation {...state} />
         <DeliveryDetails {...state}/>*/}
-        <OrderInformation {...state} />
+        <OrderInformation {...state} /> 
       </>
     );
   }
