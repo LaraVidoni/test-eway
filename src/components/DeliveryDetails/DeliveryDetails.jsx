@@ -7,7 +7,7 @@ import dropTruck from '../../images/ship_separately_truck.png';
 
 
 class OrderInformation extends Component {
-    
+
     state = {
         isStandardDelivery: false,
         isScheduledDelivery: false,
@@ -37,45 +37,14 @@ class OrderInformation extends Component {
             isUseAsDefault: !this.state.isUseAsDefault
         })
     }
-    handleSelectDate = (event) => {
+    onChange = (e) => {
+        const {
+            target: { value, name },
+        } = e;
+
         this.setState({
-            scheduledDate: event.target.value
-        })
-    }
-    handleChangeCompanyName = (event) => {
-        this.setState({
-            companyname: event.target.value
-        })
-    }
-    handleChangeAttention = (event) => {
-        this.setState({
-            attention: event.target.value
-        })
-    }
-    handleChangeStreetAddress = (event) => {
-        this.setState({
-            streetAddress: event.target.value
-        })
-    }
-    handleChangeAddressDetails = (event) => {
-        this.setState({
-            addressDetails: event.target.value
-        })
-    }
-    handleChangeCityProvince = (event) => {
-        this.setState({
-            cityProvince: event.target.value
-        })
-    }
-    handleChangePostalCode = (event) => {
-        this.setState({
-            postalCode: event.target.value
-        })
-    }
-    handleChangeDeliveryInstruction = (event) => {
-        this.setState({
-            deliveryInstruction: event.target.value
-        })
+            [name]: value
+        });
     }
 
     renderDeliveryAddress(resources) {
@@ -91,33 +60,33 @@ class OrderInformation extends Component {
                         <span className="bold-text">{resources.companyName}</span>
                         <span>
                             <input type="text" value={this.state.companyName}
-                                onChange={this.handleChangeCompanyName} required></input>
+                                name="companyName" onChange={this.onChange} required></input>
                             {resources.required}
                         </span>
                     </div>
                     <div>
                         <span className="bold-text">{resources.attention}</span>
                         <input type="text" value={this.state.attention}
-                            onChange={this.handleChangeAttention}></input>
+                            name="attention" onChange={this.onChange}></input>
                     </div>
                     <div>
                         <span className="bold-text">{resources.streetAddress}</span>
                         <span>
                             <input type="text" value={this.state.streetAddress}
-                                onChange={this.handleChangeStreetAddress} required></input>
+                                name="streetAddress" onChange={this.onChange} required></input>
                             {resources.required}
                         </span>
                     </div>
                     <div>
                         <span className="bold-text">{resources.addressDetails}</span>
                         <input type="text" value={this.state.addressDetails}
-                            onChange={this.handleChangeAddressDetails}></input>
+                            name="addressDetails" onChange={this.onChange}></input>
                     </div>
                     <div>
                         <span className="bold-text">{resources.cityProvince}</span>
                         <span>
                             <input type="text" value={this.state.cityProvince}
-                                onChange={this.handleChangeCityProvince} required></input>
+                                name="cityProvince" onChange={this.onChange} required></input>
                             {resources.required}
                         </span>
                     </div>
@@ -125,7 +94,7 @@ class OrderInformation extends Component {
                         <span className="bold-text">{resources.postalCode}</span>
                         <span>
                             <input type="text" value={this.state.postalCode}
-                                onChange={this.handleChangePostalCode} required></input>
+                                name="postalCode" onChange={this.onChange} required></input>
                             {resources.required}
                         </span>
                     </div>
@@ -133,7 +102,7 @@ class OrderInformation extends Component {
                         <span className="bold-text">{resources.deliveryInstruction}</span>
                         <span>
                             <input type="text" value={this.state.deliveryInstruction}
-                                onChange={this.handleChangeDeliveryInstruction}></input>
+                                name="deliveryInstruction" onChange={this.onChange}></input>
                             <span className="delivery-details-message">{resources.message}</span>
                         </span>
                     </div>
@@ -216,8 +185,9 @@ class OrderInformation extends Component {
 
                             <span className="bold-text">{resources.clickOnCalendar}</span>
                             <input
-                                onChange={this.handleSelectDate}
+                                onChange={this.onChange}
                                 className='selected-date'
+                                name="scheduledDate"
                                 type="date"
                                 value={this.state.scheduledDate}
                                 min={today_string}
