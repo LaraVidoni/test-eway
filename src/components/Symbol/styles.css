@@ -1,0 +1,30 @@
+.tooltip-symbol:hover .tooltip-text-symbol{
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip-symbol .tooltip-text-symbol{
+    font-size: 8pt;
+    visibility: hidden;
+    width: auto;
+    height: auto;
+    background-color: #ffffda;
+    color: black;
+    text-align: left;
+    border: 1px black solid;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 120%;
+    opacity: 0;
+    display: inline-flex;
+    white-space: nowrap;
+}
+.tooltip-symbol {
+    position: relative;
+    width: 100%;
+}
+.symbols{
+    cursor: pointer;
+}
