@@ -1,28 +1,28 @@
-#delivery-details-container{
+.delivery-details-container{
     margin: 1%;
     font-size: 13px;
     font-family: Arial, Verdana, sans-serif;
 }
-#delivery-details-container h2{ 
+.delivery-details-container h2{ 
     color:#979797;
     font-size: large;
 }
-#delivery-details-container h3{ 
+.delivery-details-container h3{ 
     color:white;
     background: grey;
     font-size: 13px;
     padding: 3px;
 }
-#delivery-details-indication{
+.delivery-details-indication{
     font-size: 8pt;
     position: absolute;
     right: 1.5%;
 }
-#delivery-details-container form div{ 
+.delivery-details-container form div{ 
     display: grid;
     margin: 0.5%;
 }
-#delivery-details-container form input[type=text]{ 
+.delivery-details-container form input[type=text]{ 
    width: 25%;
    min-width: 250px;
    padding: 2px 0;

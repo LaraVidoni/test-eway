@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import messages from "./messages";
-import "./styles.css";
-import greenArrowCircle from '../../images/Green_Arrow_Circle.png';
-import dropTruck from '../../images/ship_separately_truck.png';
+import "./styles.scss";
 
 
-
-class OrderInformation extends Component {
+class DeliveryDetails extends Component {
 
     state = {
         isStandardDelivery: false,
@@ -53,11 +50,12 @@ class OrderInformation extends Component {
                 <h3>{resources.deliveryAddress}</h3>
 
                 <form>
-                    <span id="delivery-details-indication" className="grey-text bold-text">
+                    <span className={`${styles["delivery-details-indication"]} ${styles.grey-text}
+                     ${styles.bold-text}`}>
                         {resources.indication}
                     </span>
                     <div>
-                        <span className="bold-text">{resources.companyName}</span>
+                        <span className={styles["bold-text"]}>{resources.companyName}</span>
                         <span>
                             <input type="text" value={this.state.companyName}
                                 name="companyName" onChange={this.onChange} required></input>
@@ -65,12 +63,12 @@ class OrderInformation extends Component {
                         </span>
                     </div>
                     <div>
-                        <span className="bold-text">{resources.attention}</span>
+                        <span className={styles["bold-text"]}>{resources.attention}</span>
                         <input type="text" value={this.state.attention}
                             name="attention" onChange={this.onChange}></input>
                     </div>
                     <div>
-                        <span className="bold-text">{resources.streetAddress}</span>
+                        <span className={styles["bold-text"]}>{resources.streetAddress}</span>
                         <span>
                             <input type="text" value={this.state.streetAddress}
                                 name="streetAddress" onChange={this.onChange} required></input>
@@ -78,12 +76,12 @@ class OrderInformation extends Component {
                         </span>
                     </div>
                     <div>
-                        <span className="bold-text">{resources.addressDetails}</span>
+                        <span className={styles["bold-text"]}>{resources.addressDetails}</span>
                         <input type="text" value={this.state.addressDetails}
                             name="addressDetails" onChange={this.onChange}></input>
                     </div>
                     <div>
-                        <span className="bold-text">{resources.cityProvince}</span>
+                        <span className={styles["bold-text"]}>{resources.cityProvince}</span>
                         <span>
                             <input type="text" value={this.state.cityProvince}
                                 name="cityProvince" onChange={this.onChange} required></input>
@@ -91,7 +89,7 @@ class OrderInformation extends Component {
                         </span>
                     </div>
                     <div>
-                        <span className="bold-text">{resources.postalCode}</span>
+                        <span className={styles["bold-text"]}>{resources.postalCode}</span>
                         <span>
                             <input type="text" value={this.state.postalCode}
                                 name="postalCode" onChange={this.onChange} required></input>
@@ -99,11 +97,11 @@ class OrderInformation extends Component {
                         </span>
                     </div>
                     <div>
-                        <span className="bold-text">{resources.deliveryInstruction}</span>
+                        <span className={styles["bold-text"]}>{resources.deliveryInstruction}</span>
                         <span>
                             <input type="text" value={this.state.deliveryInstruction}
                                 name="deliveryInstruction" onChange={this.onChange}></input>
-                            <span className="delivery-details-message">{resources.message}</span>
+                            <span className={styles["delivery-details-message"]}>{resources.message}</span>
                         </span>
                     </div>
                 </form>
@@ -113,9 +111,9 @@ class OrderInformation extends Component {
 
     renderButtons(resources) {
         return (
-            <div className="delivery-details-buttons">
-                <input type="button" className="return-to-cart-button" value={resources.returnToCart}></input>
-                <input type="button" className="next-button blue-button" value={resources.next}></input>
+            <div className={styles["delivery-details-buttons"]}>
+                <input type="button" className={styles["return-to-cart-button"]} value={resources.returnToCart}></input>
+                <input type="button" className={styles["next-button blue-button"]} value={resources.next}></input>
             </div>);
     }
 
@@ -128,7 +126,7 @@ class OrderInformation extends Component {
             <>
                 <h3>
                     {resources.deliveryOptions}
-                    <a href="#" className="delivery-option-link">{resources.learnMore}</a>
+                    <a href="#" className={styles["delivery-option-link"]}>{resources.learnMore}</a>
                 </h3>
 
                 <form>
@@ -137,7 +135,7 @@ class OrderInformation extends Component {
                         <label>
                             <input
                                 onChange={this.handleSelectDelivery}
-                                className='type-delivery-form-radios'
+                                className={styles['type-delivery-form-radios']}
                                 type="radio"
                                 label={resources.standardDelivery}
                                 value="Standard"
@@ -149,11 +147,11 @@ class OrderInformation extends Component {
                     </div>
 
                     {this.state.isStandardDelivery && (
-                        <div id="use-as-default">
+                        <div className={styles["use-as-default"]}>
                             <label>
                                 <input
                                     onChange={this.handleUseAsDefault}
-                                    className='use-as-default-checkbox'
+                                    className={styles['use-as-default-checkbox']}
                                     type="checkbox"
                                     label={resources.useAsDefault}
                                     value={this.useAsDefault}
@@ -169,7 +167,7 @@ class OrderInformation extends Component {
                         <label>
                             <input
                                 onChange={this.handleSelectDelivery}
-                                className='type-delivery-form-radios'
+                                className={styles['type-delivery-form-radios']}
                                 type="radio"
                                 label={resources.scheduledDelivery}
                                 value="Scheduled"
@@ -181,12 +179,12 @@ class OrderInformation extends Component {
                     </div>
 
                     {this.state.isScheduledDelivery && (
-                        <div id="select-date">
+                        <div className={styles["select-date"]}>
 
                             <span className="bold-text">{resources.clickOnCalendar}</span>
                             <input
                                 onChange={this.onChange}
-                                className='selected-date'
+                                className={styles['selected-date']}
                                 name="scheduledDate"
                                 type="date"
                                 value={this.state.scheduledDate}
@@ -208,20 +206,20 @@ class OrderInformation extends Component {
                     {this.state.isMultipleDeliveries && (resources.multipleDeliveries)}
                 </h3>
 
-                <div className="delivery-dates-line">
-                    <img src={greenArrowCircle} alt="Green arrow circle" />
+                <div className={styles["delivery-dates-line"]}>
+                    <img src='/static/Green_Arrow_Circle.png' alt="Green arrow circle" />
                     <span>{resources.deliveryDatesInfo}</span>
                 </div>
 
                 {this.state.isMultipleDeliveries && (
                     <>
-                        <div className="delivery-dates-line">
-                            <img src={greenArrowCircle} alt="Green arrow circle" />
+                        <div className={styles["delivery-dates-line"]}>
+                            <img src='/static/Green_Arrow_Circle.png' alt="Green arrow circle" />
                             <span>{resources.inStockOrder}</span>
                         </div>
 
-                        <div className="delivery-dates-line">
-                            <img src={dropTruck} alt="These products ship separately" />
+                        <div className={styles["delivery-dates-line"]}>
+                            <img src='/static/ship_separately_truck.png' alt="These products ship separately" />
                             <span>{resources.deliveredSeparately}</span>
                         </div>
                     </>
@@ -236,7 +234,7 @@ class OrderInformation extends Component {
         let resources = messages[language];
 
         return (
-            <div id="delivery-details-container">
+            <div className={styles["delivery-details-container"]}>
                 <h2>{resources.deliveryDetails}</h2>
 
                 {this.renderDeliveryAddress(resources)}
@@ -254,4 +252,4 @@ class OrderInformation extends Component {
         )
     }
 }
-export default OrderInformation;
+export default DeliveryDetails;
