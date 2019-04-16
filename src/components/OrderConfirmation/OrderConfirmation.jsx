@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import messages from "./messages";
-import "./styles.css";
+import "./styles.scss";
 
 
 class OrderConfirmation extends Component {
@@ -24,7 +24,7 @@ class OrderConfirmation extends Component {
             }
             else {
                 return (
-                    <div className="line-order-confirmation line-order-number">
+                    <div className={styles["line-order-confirmation line-order-number"]}>
                         <span>{resources.orderBeginning} {this.state.orderNumberOne} {resources.orderEnding}</span>
                     </div>
                 )
@@ -34,7 +34,7 @@ class OrderConfirmation extends Component {
 
     renderDoubleOrder(resources) {
         return (
-            <div className="line-order-confirmation line-order-number">
+            <div className={styles["line-order-confirmation line-order-number"]}>
                 <span>{resources.orderBeginningDouble} {this.state.orderNumberOne} {resources.and} {this.state.orderNumberTwo} {resources.orderEndingDouble}</span>
             </div>
         );
@@ -42,7 +42,7 @@ class OrderConfirmation extends Component {
 
     renderSpecialOrder(resources) {
         return (
-            <div className="line-order-confirmation line-order-number">
+            <div className={styles["line-order-confirmation line-order-number"]}>
                 <span>{resources.orderSpecial}</span>
             </div>
         )
@@ -53,14 +53,14 @@ class OrderConfirmation extends Component {
 
         if (this.state.isSpecialOrder) {
             return (
-                <div className="line-order-confirmation">
+                <div className={styles["line-order-confirmation"]}>
                     <span>{resources.notificationSpecial}</span>
                 </div>
             )
         }
         else {
             return (
-                <div className="line-order-confirmation">
+                <div className={styles["line-order-confirmation"]}>
                     <span>{resources.email} {mail}{resources.point}</span>
                 </div>
             )
@@ -72,19 +72,19 @@ class OrderConfirmation extends Component {
         let resources = messages[language];
 
         return (
-            <div id="order-confirmation">
+            <div className={styles["order-confirmation"]}>
 
-                <h1 className="red-text title">{resources.thanks}</h1>
+                <h1 className={`${styles["red-text"]} ${styles.title}`}>{resources.thanks}</h1>
 
                 {this.renderNumberOrder()}
                 {this.renderNotification(resources, this.state.email)}
 
-                <div className="line-order-confirmation line-contact">
+                <div className={`${styles["line-order-confirmation"]} ${styles.line-contact}`}>
                     <span>{resources.contact}</span>
                 </div>
 
-                <div className="continue-btn">
-                    <input className="grey-button" type="btn" value={resources.continue} readOnly></input>
+                <div className={styles["continue-btn"]}>
+                    <input className={styles["grey-button"]} type="btn" value={resources.continue} readOnly></input>
                 </div>
             </div>
         )

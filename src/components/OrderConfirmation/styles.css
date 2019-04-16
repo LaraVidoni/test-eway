@@ -1,11 +1,13 @@
-.continue-btn .grey-button{
-    width: 58px;
-    font-size: 7.9pt;
-    padding: 2px;
-    margin: 0;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    text-align: center;
-    cursor: initial;
+.continue-btn{
+    .grey-button{
+        width: 58px;
+        font-size: 7.9pt;
+        padding: 2px;
+        margin: 0;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        text-align: center;
+        cursor: initial;
+    }
 }
 .line-order-confirmation{
     font-size: 8pt;
@@ -19,16 +21,17 @@
     margin: 20.781px;
     margin-bottom: 10.391px;
 }
-#order-confirmation{
+.order-confirmation{
     text-align: center;
     font-family: Verdana, Arial, Helvetica, sans-serif;
+
+    .title{
+        font-size: 12pt;
+        font-weight: bold;
+        margin: 13.859px;
+        margin-bottom: 10.391px;
+    }
 }
 .red-text{
     color: #cc0000;
-}
-#order-confirmation .title{
-    font-size: 12pt;
-    font-weight: bold;
-    margin: 13.859px;
-    margin-bottom: 10.391px;
 }
