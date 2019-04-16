@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import assembly from '../../images/assembly.png';
 import catalog from '../../images/catalog.png';
+import contract from '../../images/contract.png';
 import deliveryChargesTruck from '../../images/delivery_charges_truck.png';
 import flyerItem from '../../images/flyer_item.png';
 import infoIcon from '../../images/information_icon.png';
 import marketPrice from '../../images/market_price.png';
 import promo from '../../images/promo.png';
+import question from '../../images/question.png';
 import restricted from '../../images/restricted.png';
 import shipSeparatelyTruck from '../../images/ship_separately_truck.png';
-import contract from '../../images/contract.png';
+import Symbol from '../Symbol/Symbol';
 import messages from "./messages";
-import question from '../../images/question.png';
 import "./styles.css";
 
 class OrderInformation extends Component {
@@ -21,6 +22,12 @@ class OrderInformation extends Component {
         submittedDate: "4/2/2019",
         poNumber: "Test",
         costCenter: "BRIAN MISENER 826-BC",
+        deliveryInstruction: "Test",
+        streetAddress: "Test",
+        addressDetails: "Test",
+        city: "bc",
+        province: "bc",
+        postalCode: "V6A2T4",
         accountNo: 735450,
         totalAfterPromo: 0,
         missedSavings: 0,
@@ -34,12 +41,6 @@ class OrderInformation extends Component {
         promoDiscount: 0,
         assemblyFees: 0,
         totalSavedWithSales: 0,
-        deliveryInstruction: "Test",
-        streetAddress: "Test",
-        addressDetails: "Test",
-        city: "bc",
-        province: "bc",
-        postalCode: "V6A2T4",
         isOnAccount: true,
         hasProductHandling: true,
         isPromo: true,
@@ -52,6 +53,7 @@ class OrderInformation extends Component {
         orderPromoDescriptionEN: undefined,
         deliveryPostalCode: null,
         isDeliUnknown: true,
+        hasDeliveryInstallationExtra: true,
         orderProducts: [
             {
                 quantityOrdered: 4,
@@ -81,16 +83,16 @@ class OrderInformation extends Component {
                         uom: "Box"
                     }
                 ],
-                isInInventory: true,
-                hasEnvironmentalFee: false,
+                hasEnvironmentalFee: true,
                 hasAssembly: true,
-                isInSourcebook: true,
-                isInPromoPubli: true,
+                isInSourcebook: false,
+                isInPromoPubli: false,
                 hasDeliveryCharges: false,
-                isRestricted: true,
-                isMarketPrice: true,
+                isRestricted: false,
+                isMarketPrice: false,
                 isInPromo: false,
-                isShipSeparately: true
+                isShipSeparately: false,
+                isContractProduct: false
             },
             {
                 quantityOrdered: 2,
@@ -105,21 +107,21 @@ class OrderInformation extends Component {
                 basePrice: 3.42,
                 uom: "Box",
                 productFees: [],
-                isInInventory: true,
-                hasEnvironmentalFee: true,
+                hasEnvironmentalFee: false,
                 isInSourcebook: false,
-                isInPromoPubli: true,
-                hasDeliveryCharges: true,
-                isRestricted: true,
+                isInPromoPubli: false,
+                hasDeliveryCharges: false,
+                isRestricted: false,
                 isMarketPrice: false,
-                isInPromo: true,
-                isShipSeparately: true
+                isInPromo: false,
+                isShipSeparately: false,
+                isContractProduct: false
             },
             {
                 quantityOrdered: 1,
                 quantityShipped: 1,
                 productNumber: "OHL17866",
-                description: "Staples Standard ",
+                description: "Loover Medium Back Weight Sensing Synchro-Tilter, 'Urban - Gravel Road' Fabric, 'Vue - Quarry Grey' Mesh (GREY), 2662-8 UR21 BLK G5 CX 15 ",
                 comment1: "In stock",
                 comment2: "",
                 priceWithFees: 11,
@@ -128,22 +130,27 @@ class OrderInformation extends Component {
                 unitSellPrice: 3.42,
                 uom: "Each",
                 productFees: [],
-                isInInventory: true,
                 hasEnvironmentalFee: false,
-                isInSourcebook: true,
+                isInSourcebook: false,
                 isInPromoPubli: false,
-                hasDeliveryCharges: true,
-                isRestricted: true,
+                hasDeliveryCharges: false,
+                isRestricted: false,
                 isMarketPrice: false,
-                isInPromo: true,
-                isShipSeparately: false
+                isInPromo: false,
+                isShipSeparately: false,
+                isContractProduct: false
             }
         ],
         listTotal: [
             {
                 type: "subTotal",
-                text: "Product Total",
+                text: "PRODUCT TOTAL",
                 price: 83.34
+            },
+            {
+                type: "productHandlingSpecialTariff",
+                text: "PRODUCT HANDLING/SPECIAL TARIFF FEES",
+                price: 4
             },
             {
                 type: "federalTaxTotal",
@@ -152,27 +159,17 @@ class OrderInformation extends Component {
             },
             {
                 type: "provincialTaxTotal",
-                text: "Provincial Tax Total",
-                price: 10.8342
-            },
-            {
-                type: "totalAfterPromo",
-                text: "Total After Promo",
-                price: 2
-            },
-            {
-                type: "discount",
-                text: "Discount",
+                text: "PST",
                 price: 10.8342
             },
             {
                 type: "environmentalHandlingFees",
-                text: "Environmental Handling Fees",
+                text: "ENVIRONMENTAL HANDLING FEES",
                 price: 10.8342
             },
             {
                 type: "assemblyFees",
-                text: "Assembly Fees",
+                text: "ASSEMBLY FEES",
                 price: 10.8342
             },
             {
@@ -181,8 +178,8 @@ class OrderInformation extends Component {
                 price: 10.8342
             },
             {
-                type: "ecoGreenFees",
-                text: "Eco Green Fees",
+                type: "furnitureDeliveryInstallation",
+                text: "FURNITURE DELIVERY & INSTALLATION",
                 price: 10.8342
             },
             {
@@ -196,19 +193,29 @@ class OrderInformation extends Component {
                 price: 10.8342
             },
             {
+                type: "totalBeforeDiscpunt",
+                text: "TOTAL BEFORE DISCOUNT",
+                price: 2
+            },
+            {
+                type: "discount",
+                text: "DISCOUNT",
+                price: 10.8342
+            },
+            {
                 type: "total",
-                text: "Total",
+                text: "TOTAL",
                 price: 94.17
             }
         ]
-        /*listOfPossibleLines: {
+        /*list: {
             hasProductHandling: true,
             hasEnvironmentalFee: true,
             hasHST: true, //taxe de vente harmonisée
             hasGst: true, //good and service taxe
             hasPst: true, //taxe provinciale
             hasDiscount: true,
-            hasFurnitureDeliveryInstallation: true,
+            
             hasAssembly: true,
             hasEcoFee: true
         },*/
@@ -216,7 +223,7 @@ class OrderInformation extends Component {
 
     renderOrderInformation(resources) {
         return (
-            <div id="render-order-information">
+            <div className="render-order-information">
 
                 <h3 className="order-information-title">{resources.orderInformation}</h3>
 
@@ -276,7 +283,7 @@ class OrderInformation extends Component {
     }
     renderBillingInformation(resources) {
         return (
-            <div id="render-billing-information">
+            <div className="render-billing-information">
 
                 <h3 className="order-information-title">{resources.billingInformation}</h3>
 
@@ -292,7 +299,7 @@ class OrderInformation extends Component {
     }
     renderDeliveryAddress(resources) {
         return (
-            <div id="render-delivery-address">
+            <div className="render-delivery-address">
 
                 <h3 className="order-information-title">{resources.deliveryAddress}</h3>
 
@@ -340,7 +347,7 @@ class OrderInformation extends Component {
     }
     renderTable(resources, language) {
         return (
-            <div id="render-table">
+            <div className="render-table">
                 <div className="first-line bold-text">
                     <span className="col-1">{resources.quantity}</span>
                     <span className="col-2">{resources.productNumber}</span>
@@ -349,21 +356,21 @@ class OrderInformation extends Component {
                     <span className="col-5">{resources.uom}</span>
                     <span className="col-6">{resources.total}</span>
                 </div>
-                <div id="render-lines">
+                <div className="render-lines">
                     <RenderLinesTopTable lang={language} resources={resources}
                         orderProducts={this.state.orderProducts} />
                 </div>
                 <div className="render-table-bottom">
-                    <div id="render-table-info">
+                    <div className="render-table-info">
                         {this.state.hasProductHandling && (
                             resources.messageProductHandlingBottom
                         )}
                     </div>
 
-                    <div id="render-table-total">
-                        <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}>
-                            <img src={promo} alt="promo" className="symbols" />
-                        </RenderLinesBottomTable>
+                    <div className="render-table-total">
+                        <RenderLinesBottomTable lang={language} listTotal={this.state.listTotal}
+                            resources={resources}
+                            hasDeliveryInstallationExtra={this.state.hasDeliveryInstallationExtra} />
                     </div>
                 </div>
 
@@ -376,7 +383,7 @@ class OrderInformation extends Component {
         let resources = messages[language];
 
         return (
-            <div id="order-information-container">
+            <div className="order-information-container">
 
                 {this.renderOrderInformation(resources)}
                 {this.renderBillingInformation(resources)}
@@ -420,15 +427,15 @@ function RenderLinesTopTable(props) {
                             {orderProducts[i].productNumber}
                         </div>
                         <div className="order-information-table-product-number-img">
-                            {orderProducts[i].isInPromoPubli && (<Symbols src={flyerItem} alt="Flyer item" />)}
-                            {orderProducts[i].isRestricted && (<Symbols src={restricted} alt="restricted" />)}
-                            {orderProducts[i].isMarketPrice && (<Symbols src={marketPrice} alt="marketPrice" />)}
-                            {orderProducts[i].hasDeliveryCharges && (<Symbols src={deliveryChargesTruck} alt="Delivery charges may apply" />)}
-                            {orderProducts[i].hasAssembly && (<Symbols src={assembly} alt="Assembly required" />)}
-                            {orderProducts[i].isContractProduct && (<Symbols src={contract} alt="contract" />)}
-                            {orderProducts[i].isInSourcebook && (<Symbols src={catalog} alt="Catalogue" />)}
-                            {orderProducts[i].isInPromo && (<Symbols src={promo} alt="Discount" />)}
-                            {orderProducts[i].isShipSeparately && (<Symbols src={shipSeparatelyTruck} alt="These products ship separately" />)}
+                            {orderProducts[i].isInPromoPubli && (<Symbol lang={lang} src={flyerItem} altEn="Flyer item" altFr="Article de la circulaire"/>)}
+                            {orderProducts[i].isRestricted && (<Symbol lang={lang} src={restricted} altEn="restricted" altFr="Accès limité"/>)}
+                            {orderProducts[i].isMarketPrice && (<Symbol lang={lang} src={marketPrice} altEn="marketPrice" altFr="Prix du marché"/>)}
+                            {orderProducts[i].hasDeliveryCharges && (<Symbol lang={lang} src={deliveryChargesTruck} altEn="Delivery charges may apply" altFr="Des frais de livraison pourraient s'appliquer"/>)}
+                            {orderProducts[i].hasAssembly && (<Symbol lang={lang} src={assembly} altEn="Assembly required" altFr="Assemblage requis"/>)}
+                            {orderProducts[i].isContractProduct && (<Symbol lang={lang} src={contract} altEn="Contract" altFr="Soumission"/>)}
+                            {orderProducts[i].isInSourcebook && (<Symbol lang={lang} src={catalog} altEn="Catalogue" altFr="Catalogue"/>)}
+                            {orderProducts[i].isInPromo && (<Symbol lang={lang} src={promo} altEn="Discount" altFr="Promotion"/>)}
+                            {orderProducts[i].isShipSeparately && (<Symbol lang={lang} src={shipSeparatelyTruck} altEn="These products ship separately" altFr="Ce produits sont expédiés séparément"/>)}
                         </div>
                     </span>
 
@@ -449,7 +456,7 @@ function RenderLinesTopTable(props) {
                             <span className="tooltip">
                                 <img className="info-icon " src={infoIcon}
                                     alt="info icon" />
-                                <div className="tooltiptext">
+                                <div className="tooltipText">
 
                                     <div className="tooltip-left">
                                         <div>{resources.price}</div>
@@ -459,6 +466,7 @@ function RenderLinesTopTable(props) {
                                     <div className="tooltip-right">
                                         <div><Price amount={orderProducts[i].unitSellPrice} lang={lang} /></div>
                                         <div><Price amount={orderProducts[i].productFees[0].price} lang={lang} /></div>
+                                        <div>{orderProducts[i].uom}</div>
                                     </div>
 
                                 </div>
@@ -478,8 +486,8 @@ function RenderLinesTopTable(props) {
                 {orderProducts[i].productFees.length > 0 && (
                     <RenderSpecialsLine product={orderProducts[i].productNumber} resources={resources}
                         lang={lang} productFees={orderProducts[i].productFees} hasAssembly={orderProducts[i].hasAssembly}>
-                        {orderProducts[i].hasAssembly && (<Symbols src={assembly} alt="assembly" />)}
-                        {orderProducts[i].hasAssembly && (<Symbols src={question} alt="info" />)}
+                        {orderProducts[i].hasAssembly && (<Symbol lang={lang} src={assembly} altEn="Assembly required" />)}
+                        {orderProducts[i].hasAssembly && (<Symbol lang={lang} src={question} altEn="info" />)}
                     </RenderSpecialsLine>
                 )}
             </div>
@@ -529,20 +537,21 @@ function RenderSpecialsLine(props) {
     } return line;
 }
 function RenderLinesBottomTable(props) {
-    const lang = props.lang
-    const listTotal = props.listTotal
+    const lang = props.lang;
+    const resources = props.resources
+    const listTotal = props.listTotal;
     var line = [];
+    const hasDeliveryInstallationExtra = props.hasDeliveryInstallationExtra;
 
     listTotal.map((list, i) => {
         if (list.price === 0.0) return null
-        console.log("list")
-        console.log(list)
         line.push(
 
             <div key={i} className="render-bottom-table-line">
 
                 <span>
-                    {list.text} <TextSupp type={list.type} />
+                    {list.text} <TextSupp lang={lang} type={list.type} resources={resources}
+                        hasDeliveryInstallationExtra={hasDeliveryInstallationExtra} />
                 </span>
                 <span className="render-bottom-table-float-right">
                     <Price amount={list.price} lang={lang} />
@@ -556,30 +565,32 @@ function RenderLinesBottomTable(props) {
     return line;
 }
 
+function TextSupp(props) {
+    const lang = props.lang;
+    const type = props.type;
+    const resources = props.resources
+    const hasDeliveryInstallationExtra = props.hasDeliveryInstallationExtra;
+
+    if (type === "discount")
+        return (
+            <><Symbol lang={lang} src={promo} altEn="Discount" /></>
+        )
+
+    if (type === "total" && hasDeliveryInstallationExtra)
+        return (
+            <>{resources.deliveryInstallationExtra}</>
+        )
+
+
+    return null
+}
+
+
+
 function Price(props) {
     return (
         <span>
             {props.lang === "en" ? "$" + props.amount : props.amount + "$"}
         </span>
     );
-}
-function Symbols(props) {
-    return <img className="symbols" src={props.src} alt={props.alt} />
-}
-
-function TextSupp(props) {
-    const type = props.type
-    const deliveryExtra = props.deliveryExtra
-    if (type === "discount")
-        return (
-            <><Symbols src={promo} alt="Discount" /></>
-        )
-
-    if (type === "total" && deliveryExtra)
-        return (
-            <><Symbols src={promo} alt="Discount" /></>
-        )
-
-
-    return null
 }

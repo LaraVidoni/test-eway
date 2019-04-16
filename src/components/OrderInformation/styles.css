@@ -11,7 +11,7 @@
     display: inline-flex;
     padding: 0 2%;
 }
-#order-information-container{
+.order-information-container{
     margin: 1%;
     font-size: 9pt;
 }
@@ -21,11 +21,11 @@
 .order-information-line{
     padding: 5px 0;
 }
-#render-lines{
+.render-lines{
     display: inline-grid;
     width: 100%;
 }
-#render-table{
+.render-table{
     margin: 2% 0;
 }
 .first-line span{
@@ -97,22 +97,22 @@
 .render-table-bottom>div{
     width: 50%;
 }
-#render-table-info{
+.render-table-info{
     border: 1px black solid;
     width: 50%;
     border-right: none;
     padding: 3px;
     text-align: justify;
 }
-#render-table-total{
+.render-table-total{
     right: 1%;
 }
-#render-table-total div{
+.render-table-total div{
      border-color: black;
      border-style: solid;
      border-width: 0 1px 1px ;
 }
-#render-table-total div:first-child{
+.render-table-total div:first-child{
     border-top: 1px black solid;
 }
 .render-bottom-table-float-right{
@@ -132,8 +132,9 @@
 }
 .tooltip {
     position: relative;
+    width: 100%;
 }
-.tooltip .tooltiptext {
+.tooltip .tooltipText{
     visibility: hidden;
     width: 140px;
     background-color: #ffffda;
@@ -149,7 +150,26 @@
     opacity: 0;
     display: inline-flex;
 }
-.tooltip:hover .tooltiptext {
+.tooltip .tooltipTextSymbol{
+    font-size: 8pt;
+    visibility: hidden;
+    width: auto;
+    height: auto;
+    background-color: #ffffda;
+    color: black;
+    text-align: left;
+    border: 1px black solid;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 125%;
+    opacity: 0;
+    display: inline-flex;
+    white-space: nowrap;
+}
+.tooltip:hover .tooltipText, .tooltip:hover .tooltipTextSymbol{
     visibility: visible;
     opacity: 1;
 }
